@@ -3,26 +3,26 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Bilgi Evreni - Detaylı & Abartılı Portal</title>
+<title>Bilgi Evreni - Detaylı Kategoriler & Modern Menü</title>
 <style>
-  /* --- Reset & temel --- */
+  /* === Reset === */
   *, *::before, *::after {
-    margin:0; padding:0; box-sizing:border-box;
+    margin: 0; padding: 0; box-sizing: border-box;
   }
   html { scroll-behavior: smooth; }
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f5f8f6;
+    background: #f0f5f2;
     color: #222;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    transition: background-color 0.35s ease, color 0.35s ease;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   body.dark {
     background: #121212;
-    color: #eee;
+    color: #ddd;
   }
   a {
     color: #27ae60;
@@ -34,10 +34,10 @@
     outline: none;
   }
 
-  /* --- HEADER --- */
+  /* === HEADER === */
   header {
     position: fixed;
-    top:0; left:0; right:0;
+    top: 0; left: 0; right: 0;
     height: 65px;
     background: #1e272e;
     box-shadow: 0 2px 8px rgba(0,0,0,0.5);
@@ -64,16 +64,15 @@
     cursor: pointer;
     transition: all 0.3s ease;
     user-select: none;
-    box-shadow: 0 0 15px #2ecc71aa;
   }
   #darkToggle:hover, #darkToggle:focus {
     background: #2ecc71;
     color: #121212;
     outline: none;
-    box-shadow: 0 0 30px #27ae60cc;
+    box-shadow: 0 0 15px #27ae60aa;
   }
 
-  /* --- HAMBURGER --- */
+  /* === HAMBURGER === */
   #hamburger {
     display: none;
     flex-direction: column;
@@ -90,7 +89,7 @@
     border-radius: 4px;
     transition: all 0.35s ease;
   }
-  /* Animasyon hamburger to X */
+  /* Hamburger to X */
   #hamburger.open span:nth-child(1) {
     transform: translateY(10px) rotate(45deg);
   }
@@ -101,7 +100,7 @@
     transform: translateY(-10px) rotate(-45deg);
   }
 
-  /* --- NAV --- */
+  /* === NAVIGATION === */
   nav {
     position: fixed;
     top: 65px;
@@ -129,8 +128,7 @@
     background: #2ecc71;
     border-radius: 16px;
   }
-
-  /* NAV KAPAT BUTONU (Çarpı) */
+  /* NAV CLOSE BUTTON */
   #nav-close-btn {
     position: absolute;
     top: 12px;
@@ -148,7 +146,7 @@
     outline: none;
   }
 
-  /* Kategori Başlıkları Accordion stili */
+  /* --- Accordion Kategoriler --- */
   .category {
     border-radius: 10px;
     background: #22432c;
@@ -189,11 +187,11 @@
     background: #2a4b2d;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s ease;
+    transition: max-height 0.5s ease, padding 0.3s ease;
     padding: 0 1.6rem;
   }
   .category-content.open {
-    max-height: 900px; /* Çok uzun olabilir diye büyük tuttuk */
+    max-height: 900px;
     padding-bottom: 1.4rem;
   }
   .category-content p {
@@ -202,7 +200,7 @@
     color: #d4e9bf;
     font-size: 1rem;
   }
-  /* Scrollbar içinde kategoride */
+  /* Scrollbar kategori içinde */
   .category-content::-webkit-scrollbar {
     width: 6px;
   }
@@ -331,7 +329,6 @@
     outline: none;
     box-shadow: 0 9px 21px #d68910cc;
   }
-
   /* Gece modu quiz uyumlu */
   body.dark #quiz {
     background: #2ecc71;
@@ -339,13 +336,13 @@
     box-shadow: 0 20px 48px #27ae60cc;
   }
 
-  /* --- ACCESSIBILITY --- */
+  /* === ACCESSIBILITY FOCUS === */
   a:focus, button:focus {
     outline: 3px solid #27ae60;
     outline-offset: 3px;
   }
 
-  /* --- MOBIL --- */
+  /* === RESPONSİVE === */
   @media (max-width: 900px) {
     #hamburger { display: flex; }
     nav {
@@ -379,19 +376,19 @@
 <nav id="side-nav" aria-label="Kategori Navigasyonu" aria-hidden="true">
   <button id="nav-close-btn" aria-label="Menüyü kapat" title="Menüyü kapat">&times;</button>
 
-  <!-- Kategori accordion listesi -->
+  <!-- Accordion Kategoriler -->
   <div class="category">
     <button class="category-header" aria-expanded="false" aria-controls="content1" id="cat1-btn" tabindex="0">
       Tarih
       <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
     </button>
     <div class="category-content" id="content1" role="region" aria-labelledby="cat1-btn" tabindex="0">
-      <p>İnsanlık tarihindeki en önemli dönüm noktalarından biri olan İstanbul'un fethi, 29 Mayıs 1453'te gerçekleşmiştir. II. Mehmet'in önderliğindeki Osmanlı ordusu, Bizans İmparatorluğu'nun başkentini alarak Orta Çağ'ın kapanışını ve Yeni Çağ'ın başlangıcını simgelemiştir.</p>
-      <p>Roma, Yunan, Mısır ve Mezopotamya gibi eski medeniyetler, kültür, hukuk ve sanat alanında bugünkü medeniyetlerin temellerini atmıştır.</p>
-      <p>20. yüzyılda iki dünya savaşı ve teknolojik gelişmeler, modern dünyanın şekillenmesinde etkili olmuştur.</p>
-      <p>Tarih, geçmişin izlerini sürerek bugünümüzü anlamamıza ve geleceğimizi planlamamıza yardımcı olur.</p>
-      <p>Antik dönemden modern çağa uzanan yolculuk, farklı kültürlerin kaynaşması ve savaşların dünyayı şekillendirmesi ile gerçekleşmiştir.</p>
-      <p>Osmanlı, Bizans, Roma ve daha pek çok imparatorluk tarih boyunca insanlık için ders niteliği taşımıştır.</p>
+      <p>İstanbul'un fethi, 29 Mayıs 1453'te gerçekleşmiştir. II. Mehmet önderliğindeki Osmanlı ordusu, Bizans'ı yıkarak Orta Çağ'ı kapatıp Yeni Çağ'ı açmıştır.</p>
+      <p>Antik Roma ve Yunan uygarlıkları, hukuk ve sanat açısından bugünkü medeniyetlere ilham vermiştir.</p>
+      <p>20. yüzyılda dünya savaşları ve teknoloji insanlık tarihini derinden etkilemiştir.</p>
+      <p>Tarih, geçmişin izlerini sürerek bugünümüzü anlamamıza yardım eder.</p>
+      <p>Osmanlı, Bizans, Roma imparatorlukları insanlık için önemli dersler barındırır.</p>
+      <p>Kültürler ve medeniyetler tarih boyunca şekillenip kaynaşmıştır.</p>
     </div>
   </div>
 
@@ -401,12 +398,12 @@
       <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
     </button>
     <div class="category-content" id="content2" role="region" aria-labelledby="cat2-btn" tabindex="0">
-      <p>Bilim, doğayı anlama ve açıklama çabasıdır. Fizik, kimya, biyoloji gibi disiplinler evreni anlamamızı sağlar.</p>
-      <p>Einstein’ın görelilik teorisi ve Newton’un hareket kanunları, fizik biliminde devrim yaratmıştır.</p>
-      <p>Genetik alanındaki ilerlemeler, insan DNA'sının yapısını çözerek tıpta yeni yöntemlerin geliştirilmesine olanak tanımıştır.</p>
-      <p>Günümüzde yapay zeka ve robotik bilim, geleceği şekillendiren öncü alanlar arasında yer alıyor.</p>
-      <p>Bilimsel yöntem, hipotez kurma, deney yapma ve sonuçları analiz etme aşamalarını içerir.</p>
-      <p>Evrenin kökeni, atom altı parçacıklar ve kara delikler gibi konular bilim dünyasında hala büyük merak uyandırmaktadır.</p>
+      <p>Bilim doğayı anlamak için yapılan sistematik çalışmadır. Fizik, kimya ve biyoloji önemli alanlardır.</p>
+      <p>Newton hareket yasaları ve Einstein görelilik teorisi fiziğin temel taşlarıdır.</p>
+      <p>Genetik, DNA'nın yapısını çözerek tıpta devrim yaratmıştır.</p>
+      <p>Yapay zeka ve robotik günümüzün hızla gelişen bilim dallarındandır.</p>
+      <p>Bilimsel yöntem deney ve gözlem yoluyla bilgi üretir.</p>
+      <p>Kara delikler ve evrenin kökeni halen merak edilen konulardır.</p>
     </div>
   </div>
 
@@ -416,8 +413,22 @@
       <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
     </button>
     <div class="category-content" id="content3" role="region" aria-labelledby="cat3-btn" tabindex="0">
-      <p>Futbol, dünya çapında en çok takip edilen spor dalıdır. İki takımın 11’er oyuncuyla sahada mücadele ettiği bu oyun, basit kuralları ve yüksek rekabetiyle herkesi büyüler.</p>
-      <p>Dünya Kupası, futbolun zirvesini temsil eder. 4 yılda bir düzenlenen bu turnuva, ülkelerin en iyilerini bir araya getirir ve milyonlarca izleyiciyi ekran başına çeker.</p>
-      <p>Tarihin en büyük futbolcularından Pelé, Diego Maradona, Lionel Messi ve Cristiano Ronaldo, futbolun sınırlarını zorlayarak yeni standartlar oluşturmuştur.</p>
-      <p>Teknik direktörlerin stratejileri ve taktikleri, maçların kaderini belirler. Modern futbol, teknoloji ve analizle birleşerek sürekli evrim halindedir.</p>
-      <p>Futbolda pozisyonlar, taktik dizilişler ve oyun stilleri maçların sonucunu belirler.</p
+      <p>Futbol dünyada en çok takip edilen spordur. 11 oyuncudan oluşan takımlar yarışır.</p>
+      <p>Dünya Kupası, futbolun zirvesidir ve 4 yılda bir düzenlenir.</p>
+      <p>Pelé, Maradona, Messi ve Ronaldo futbol tarihinin efsanelerindendir.</p>
+      <p>Teknik direktörler ve taktikler maçları etkiler, modern futbol teknolojiyle birleşir.</p>
+      <p>VAR gibi teknolojiler futbolun adaletini arttırmak için kullanılır.</p>
+      <p>Maçlarda pozisyon ve oyun stilleri sonucu belirler.</p>
+    </div>
+  </div>
+
+  <div class="category">
+    <button class="category-header" aria-expanded="false" aria-controls="content4" id="cat4-btn" tabindex="0">
+      Sanat
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
+    </button>
+    <div class="category-content" id="content4" role="region" aria-labelledby="cat4-btn" tabindex="0">
+      <p>Sanat insan duygu ve düşüncelerinin ifadesidir. Resim, heykel, müzik gibi dalları vardır.</p>
+      <p>Rönesans dönemi, da Vinci ve Michelangelo'nun eserleriyle sanat tarihini değiştirmiştir.</p>
+      <p>Modern sanat akımları sınırları zorlamış ve yeni teknikler geliştirmiştir.</p>
+      <p>Empresyonizm, sürrealizm ve kübizm önemli modern akımlardır

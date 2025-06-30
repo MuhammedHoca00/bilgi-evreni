@@ -3,740 +3,473 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Bilgi Evreni - Muhteşem Site</title>
+<title>Bilgi Evreni - Futbolcu Oyunu Dahil</title>
 <style>
-  /* Temel reset */
+  /* Genel */
   * {
-    margin:0; padding:0; box-sizing: border-box;
+    box-sizing: border-box;
   }
   body {
+    margin: 0; padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
-    color: #333;
-    min-height: 100vh;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: #f0f0f0;
     display: flex;
+    min-height: 100vh;
   }
+
   /* Sidebar */
   #sidebar {
-    width: 280px;
-    background: linear-gradient(45deg, #2d6cdf, #1a3aa9);
-    color: white;
+    width: 260px;
+    background: #0b2341;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.7);
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 20px 15px;
     position: fixed;
-    height: 100vh;
+    top: 0; left: 0; bottom: 0;
     overflow-y: auto;
-    box-shadow: 2px 0 8px rgba(0,0,0,0.2);
   }
   #sidebar h2 {
-    font-size: 1.8rem;
-    margin-bottom: 30px;
+    color: #ffd700;
+    margin-bottom: 20px;
+    font-size: 1.7rem;
     text-align: center;
-    font-weight: 900;
-    letter-spacing: 2px;
+    text-shadow: 0 0 10px #ffd700;
   }
   #sidebar nav button {
     background: transparent;
     border: none;
-    color: white;
-    font-size: 1.15rem;
+    color: #ddd;
     text-align: left;
-    padding: 15px 10px;
-    margin-bottom: 8px;
-    border-radius: 8px;
+    padding: 12px 18px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    font-size: 1.05rem;
     cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    box-shadow: inset 0 0 6px transparent;
+  }
+  #sidebar nav button:hover, #sidebar nav button.active {
+    background: #ffd700;
+    color: #0b2341;
+    box-shadow: inset 0 0 12px #ffd700;
+  }
+
+  /* Hamburger (mobil) */
+  #hamburger {
+    display: none;
+    position: fixed;
+    top: 15px; left: 15px;
+    width: 35px; height: 30px;
+    cursor: pointer;
+    z-index: 1001;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  #hamburger span {
+    display: block;
+    height: 4px;
+    background: #ffd700;
+    border-radius: 2px;
+  }
+
+  /* İçerik */
+  #content {
+    margin-left: 260px;
+    padding: 30px 40px;
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+  #content h1 {
+    font-size: 2.5rem;
+    color: #ffd700;
+    margin-bottom: 25px;
+    text-shadow: 0 0 12px #ffd700;
+  }
+  #content p, #content li {
+    font-size: 1.1rem;
+    line-height: 1.55;
+    color: #eee;
+  }
+  #content ul {
+    margin-left: 20px;
+  }
+
+  /* Gece modu */
+  body.dark-mode {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #eee !important;
+  }
+  body.dark-mode #content {
+    color: #eee !important;
+  }
+  body.dark-mode p, 
+  body.dark-mode li, 
+  body.dark-mode h1, 
+  body.dark-mode h2, 
+  body.dark-mode h3 {
+    color: #eee !important;
+  }
+  body.dark-mode #sidebar nav button {
+    color: #ddd !important;
+  }
+  body.dark-mode #sidebar {
+    background: #051521;
+    box-shadow: 2px 0 10px rgba(255,255,255,0.1);
+  }
+
+  /* Gece modu butonu */
+  #darkModeToggle {
+    background: #ffd700;
+    border: none;
+    color: #0b2341;
+    font-weight: 700;
+    border-radius: 12px;
+    padding: 10px 20px;
+    cursor: pointer;
+    box-shadow: 0 0 12px #ffd700;
     transition: background 0.3s ease;
-    font-weight: 600;
+    margin-top: auto;
   }
-  #sidebar nav button:hover,
-  #sidebar nav button.active {
-    background: #1846a3;
+  #darkModeToggle:hover {
+    background: #f1c40f;
   }
-  /* Üst menü için mobilde gizleme */
-  @media (max-width: 768px) {
+
+  /* Oyun stili */
+  #game {
+    background: #0b2341;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(255,255,255,0.2);
+    padding: 30px 40px;
+    max-width: 480px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  #game h2 {
+    color: #ffd700;
+    text-shadow: 0 0 8px #ffd700;
+    margin-bottom: 25px;
+  }
+  .clue {
+    background: #145da0;
+    margin: 8px 0;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    box-shadow: inset 0 0 10px #0a3e7a;
+  }
+  #answer {
+    width: calc(100% - 34px);
+    padding: 14px 15px;
+    border-radius: 15px;
+    border: none;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    outline: none;
+  }
+  #submitBtn, #nextBtn {
+    margin-top: 30px;
+    background: #ffd700;
+    color: #0b2341;
+    border: none;
+    padding: 14px 32px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 0 0 15px #ffd700;
+    transition: background 0.3s ease;
+  }
+  #submitBtn:hover, #nextBtn:hover {
+    background: #f1c40f;
+  }
+  #nextBtn {
+    display: none;
+  }
+  #result {
+    margin-top: 30px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    min-height: 38px;
+    text-shadow: 0 0 8px #fff;
+  }
+
+  /* Responsive mobil */
+  @media (max-width: 850px) {
     #sidebar {
       position: fixed;
-      left: -300px;
+      left: -280px;
       transition: left 0.3s ease;
-      z-index: 999;
+      z-index: 1000;
     }
     #sidebar.open {
       left: 0;
     }
-  }
-
-  /* Ana içerik */
-  #content {
-    margin-left: 280px;
-    padding: 30px 40px;
-    flex: 1;
-    overflow-y: auto;
-  }
-  @media (max-width: 768px) {
     #content {
       margin-left: 0;
-      padding: 20px 15px;
+      padding: 20px 20px;
+      width: 100vw;
+      overflow-y: auto;
     }
-  }
-
-  /* Başlıklar */
-  h1, h2, h3 {
-    margin-bottom: 18px;
-    font-weight: 700;
-    color: #14213d;
-    text-shadow: 0 1px 2px rgba(20,33,61,0.2);
-  }
-  p, li {
-    line-height: 1.7;
-    font-size: 1rem;
-    color: #333;
-  }
-
-  /* Listeler */
-  ul {
-    list-style: inside disc;
-    margin-bottom: 25px;
-  }
-
-  /* Oyun kapsayıcı */
-  .game-container {
-    background: white;
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    margin-top: 40px;
-  }
-
-  /* Butonlar */
-  button {
-    cursor: pointer;
-    padding: 10px 18px;
-    border-radius: 8px;
-    border: none;
-    background: #2d6cdf;
-    color: white;
-    font-weight: 700;
-    font-size: 1rem;
-    transition: background 0.25s ease;
-    user-select: none;
-  }
-  button:hover:not(:disabled) {
-    background: #1846a3;
-  }
-  button:disabled {
-    background: #999999;
-    cursor: not-allowed;
-  }
-
-  /* Doğru/Yanlış oyun düğmeleri */
-  .true-false-btns button {
-    width: 120px;
-    margin-right: 15px;
-  }
-
-  /* Quiz cevap seçenekleri */
-  .answers button {
-    margin: 8px 10px 8px 0;
-    min-width: 130px;
-    font-size: 0.95rem;
-  }
-
-  /* Sonuç mesajı */
-  .result-message {
-    margin-top: 15px;
-    font-size: 1.1rem;
-    font-weight: 700;
-  }
-
-  /* Sidebar açma kapama butonu mobil */
-  #sidebarToggle {
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    z-index: 1100;
-    font-size: 2rem;
-    background: #2d6cdf;
-    color: white;
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    border: none;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(45,108,223,0.4);
-    user-select: none;
-  }
-  @media (max-width: 768px) {
-    #sidebarToggle {
+    #hamburger {
       display: flex;
     }
   }
-
-  /* Gece modu düğmesi */
-  #darkModeToggle {
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    z-index: 1100;
-    background: #ffb703;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 16px;
-    font-weight: 700;
-    cursor: pointer;
-    user-select: none;
-    box-shadow: 0 4px 8px rgba(255,183,3,0.4);
-    transition: background 0.3s ease;
-  }
-  #darkModeToggle:hover {
-    background: #faa307;
-  }
-
-  /* Gece modu body */
-  body.dark-mode {
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    color: #ddd;
-  }
-  body.dark-mode #sidebar {
-    background: linear-gradient(45deg, #1f4068, #133b5c);
-    color: #eee;
-  }
-  body.dark-mode #sidebar nav button {
-    color: #ddd;
-  }
-  body.dark-mode #sidebar nav button.active,
-  body.dark-mode #sidebar nav button:hover {
-    background: #305f8b;
-  }
-  body.dark-mode #content {
-    color: #eee;
-  }
-  body.dark-mode button {
-    background: #305f8b;
-    color: #eee;
-  }
-  body.dark-mode button:hover:not(:disabled) {
-    background: #2a4b6d;
-  }
-  body.dark-mode #darkModeToggle {
-    background: #1b98e0;
-    color: white;
-  }
-  body.dark-mode #darkModeToggle:hover {
-    background: #1270c9;
-  }
-
 </style>
 </head>
 <body>
 
-<button id="sidebarToggle" aria-label="Menüyü aç/kapat">☰</button>
-<button id="darkModeToggle" aria-label="Gece modunu aç/kapat">Gece Modu</button>
+<!-- Hamburger Menü -->
+<div id="hamburger" aria-label="Menüyü aç/kapat" role="button" tabindex="0">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
 
-<aside id="sidebar" role="navigation" aria-label="Ana kategori menüsü">
+<!-- Yan Menü -->
+<aside id="sidebar" role="navigation" aria-label="Site Kategorileri">
   <h2>Bilgi Evreni</h2>
   <nav>
-    <button class="nav-btn active" data-page="home" aria-current="page">Ana Sayfa</button>
-    <button class="nav-btn" data-page="kategori1">Bilim ve Teknoloji</button>
-    <button class="nav-btn" data-page="kategori2">Tarih ve Kültür</button>
-    <button class="nav-btn" data-page="kategori3">Doğa ve Evren</button>
-    <button class="nav-btn" data-page="kategori4">Sanat ve Edebiyat</button>
-    <button class="nav-btn" data-page="kategori5">Oyunlar</button>
+    <button data-page="home" class="active" aria-current="page">Ana Sayfa</button>
+    <button data-page="kategori1">Tarih</button>
+    <button data-page="kategori2">Bilim</button>
+    <button data-page="kategori3">Teknoloji</button>
+    <button data-page="kategori4">Kültür & Sanat</button>
+    <button data-page="kategori5">Futbolcu Bilme Oyunu</button>
   </nav>
+  <button id="darkModeToggle" aria-pressed="false">Gece Modu</button>
 </aside>
 
-<main id="content" tabindex="0" role="main" aria-live="polite" aria-atomic="true">
-  <!-- İçerik buraya gelecek -->
+<!-- İçerik -->
+<main id="content" role="main" tabindex="0">
+
+  <!-- Dinamik içerik buraya gelecek -->
 </main>
 
 <script>
   // DOM elementleri
   const sidebar = document.getElementById('sidebar');
-  const sidebarToggle = document.getElementById('sidebarToggle');
-  const darkModeToggle = document.getElementById('darkModeToggle');
   const content = document.getElementById('content');
-  const navButtons = document.querySelectorAll('#sidebar nav button.nav-btn');
-
-  // Menü aç kapa mobil için
-  sidebarToggle.addEventListener('click', () => {
-    sidebar.classList.toggle('open');
-  });
-
-  // Gece modu aç kapa
-  darkModeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-  });
+  const navButtons = sidebar.querySelectorAll('nav button');
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  const hamburger = document.getElementById('hamburger');
 
   // Sayfa içerikleri
   const pages = {
     home: `
-      <h1>Bilgi Evrenine Hoşgeldiniz!</h1>
-      <p>Bu sitede çeşitli kategorilerde derinlemesine bilgi ve oyunlar bulabilirsiniz.</p>
-      <section>
-        <h2>Bilim ve Teknoloji</h2>
-        <p>Bilim insanlarının yaptığı keşiflerden, teknolojideki son yeniliklere kadar çok geniş bir yelpazede bilgiler.</p>
-        <p>Örneğin, yapay zekanın gelişimi, uzay araştırmaları, biyoteknoloji ve daha fazlası...</p>
-        <ul>
-          <li>Yapay zekanın tarihçesi ve geleceği</li>
-          <li>Uzay teknolojilerinde çığır açan gelişmeler</li>
-          <li>Robotik ve otomasyonun endüstrideki rolü</li>
-          <li>Enerji teknolojileri ve sürdürülebilirlik</li>
-        </ul>
-      </section>
-      <section>
-        <h2>Tarih ve Kültür</h2>
-        <p>Geçmiş medeniyetler, kültürel miraslar ve tarih boyunca önemli olaylar hakkında uzun ve detaylı yazılar.</p>
-        <p>Osmanlı'dan Antik Mısır'a, Rönesans'tan modern çağa kadar geniş bir içerik.</p>
-      </section>
-      <section>
-        <h2>Doğa ve Evren</h2>
-        <p>Evrenin sırları, doğa olayları, ekosistemler ve çevre bilinci üzerine yazılar.</p>
-        <p>Kara delikler, yıldızların yaşam döngüsü, biyolojik çeşitlilik ve iklim değişikliği gibi konular.</p>
-      </section>
-      <section>
-        <h2>Sanat ve Edebiyat</h2>
-        <p>Dünya edebiyatından örnekler, sanat tarihinden önemli eserler ve analizler.</p>
-        <p>Romanlardan şiirlere, resimlerden heykellere kadar birçok alan.</p>
-      </section>
-      <section>
-        <h2>Oyunlar</h2>
-        <p>Bilgi yarışmaları ve zeka oyunları ile kendinizi test edebilirsiniz.</p>
-        <p>Farklı zorluk seviyelerinde çeşitli oyunlar sizi bekliyor.</p>
-      </section>
+      <h1>Ana Sayfa</h1>
+      <p>Bilgi Evreni'ne hoş geldiniz! Burada birçok kategoride detaylı, uzun ve ilgi çekici yazılar bulabilirsiniz. Ayrıca futbolcu bilme oyunumuz ile bilginizi test edin!</p>
+      <p>Sol menüden farklı kategorilere göz atabilir, eğlenceli ve bilgilendirici içeriklerle dolu sayfalara geçiş yapabilirsiniz.</p>
     `,
     kategori1: `
-      <h1>Bilim ve Teknoloji</h1>
-      <article>
-        <h2>Yapay Zekanın Evrimi</h2>
-        <p>Yapay zeka, 1950'lerden bu yana hızlı bir gelişim göstermiştir. Başlangıçta basit algoritmalar ve mantık temelli programlar olarak başlayan yapay zeka, günümüzde makine öğrenimi ve derin öğrenme gibi ileri tekniklerle karmaşık problemleri çözebilmektedir.</p>
-        <p>Örneğin, AlphaGo gibi yapay zeka sistemleri insanları Go oyununda yenmeyi başarmış ve bu alandaki potansiyeli ortaya koymuştur.</p>
-      </article>
-      <article>
-        <h2>Uzay Araştırmalarında Son Gelişmeler</h2>
-        <p>Son yıllarda Mars'a yapılan başarılı inişler ve uzay teleskopları sayesinde evreni daha iyi anlamaya başladık. James Webb Uzay Teleskobu, evrenin erken dönemlerine ışık tutmakta ve galaksilerin oluşum süreçlerini incelemektedir.</p>
-      </article>
-      <article>
-        <h2>Enerji Teknolojileri</h2>
-        <p>Yenilenebilir enerji kaynakları, fosil yakıtların yerini almaya başlamıştır. Güneş panelleri, rüzgar türbinleri ve hidroelektrik santraller enerji üretiminde giderek daha önemli hale gelmektedir.</p>
-        <p>Enerji depolama ve verimli kullanım konuları, bu alandaki teknolojik gelişmelerin odak noktasıdır.</p>
-      </article>
+      <h1>Tarih</h1>
+      <p>Tarih, insanlık tarihinin en önemli ve geniş alanlarından biridir. Aşağıda tarih hakkında detaylı bilgiler bulunmaktadır:</p>
+      <p>İnsanlık tarihi, binlerce yıl öncesine dayanan olaylar, medeniyetler, savaşlar, keşifler ve kültürel gelişmelerle doludur. Tarih boyunca birçok önemli figür ve olay yaşamış, dünyayı şekillendirmiştir.</p>
+      <p>Örneğin, Antik Mısır'ın piramitleri, Roma İmparatorluğu'nun genişlemesi, Orta Çağ'ın feodal yapısı, Rönesans dönemi sanatı ve bilimsel gelişmeler, modern çağın endüstri devrimi ve iki dünya savaşı tarihin önemli dönüm noktalarıdır.</p>
+      <p>Her bir dönem, insanlık kültürüne, sosyal yapısına ve teknolojik ilerlemesine farklı katkılar sağlamıştır.</p>
+      <p>Günümüzde tarih çalışmaları, arkeoloji, antropoloji, sosyoloji ve diğer disiplinlerle beraber insanlık geçmişini anlamaya devam etmektedir.</p>
     `,
     kategori2: `
-      <h1>Tarih ve Kültür</h1>
-      <article>
-        <h2>Osmanlı İmparatorluğu'nun Yükselişi</h2>
-        <p>Osmanlı İmparatorluğu, 13. yüzyıl sonlarında kurulmuş ve 600 yılı aşkın süre boyunca büyük bir güç olarak varlığını sürdürmüştür. İstanbul'un fethi, imparatorluğun en önemli dönüm noktalarından biridir.</p>
-        <p>Kültürel olarak çok zengin bir mirasa sahip olan Osmanlı, mimariden edebiyata kadar birçok alanda iz bırakmıştır.</p>
-      </article>
-      <article>
-        <h2>Antik Mısır Medeniyeti</h2>
-        <p>Antik Mısır, piramitleri ve hiyeroglif yazısıyla bilinen, dünya tarihinin en eski medeniyetlerinden biridir. Nil Nehri'nin çevresinde gelişen bu uygarlık, tarım ve mühendislik alanında büyük ilerlemeler kaydetmiştir.</p>
-      </article>
-      <article>
-        <h2>Rönesans Dönemi</h2>
-        <p>15. yüzyılda başlayan Rönesans, Avrupa'da bilim, sanat ve felsefede büyük bir uyanışa yol açmıştır. Leonardo da Vinci ve Michelangelo gibi sanatçılar bu dönemin en parlak temsilcilerindendir.</p>
-      </article>
+      <h1>Bilim</h1>
+      <p>Bilim, evreni ve doğayı anlamak için sistematik bilgi ve araştırma yöntemidir. Aşağıda bilim hakkında detaylı bilgiler yer almaktadır:</p>
+      <p>Bilim, fizik, kimya, biyoloji, astronomi gibi birçok alt dalı içerir. Her alan, doğanın belirli yönlerini inceleyerek insanlığın bilgi dağarcığını genişletir.</p>
+      <p>Örneğin, fizik evrenin temel yasalarını, enerjiyi ve maddeyi incelerken; biyoloji yaşamı, organizmaları ve ekosistemleri araştırır.</p>
+      <p>Bilimsel yöntem, gözlem, hipotez kurma, deney ve analiz aşamalarından oluşur. Bu süreç sayesinde bilim insanları evrensel doğrulara ulaşmaya çalışırlar.</p>
+      <p>Teknolojinin gelişmesi, bilimin ilerlemesine paralel olarak yeni keşiflerin yapılmasına imkan sağlar. Bilim, sağlık, çevre, enerji ve iletişim gibi hayatımızın birçok alanında kritik rol oynar.</p>
     `,
     kategori3: `
-      <h1>Doğa ve Evren</h1>
-      <article>
-        <h2>Kara Delikler</h2>
-        <p>Kara delikler, uzay-zamanın yoğunlaşmış bölgeleridir. Yakın zamanda yapılan gözlemler, kara deliklerin varlığını doğrudan kanıtlamıştır. Kara delikler, ışığın bile kaçamadığı çok güçlü çekim alanlarına sahiptir.</p>
-      </article>
-      <article>
-        <h2>Yıldızların Yaşam Döngüsü</h2>
-        <p>Yıldızlar, doğumlarından ölümlerine kadar çeşitli evrelerden geçer. Kütlelerine bağlı olarak kırmızı dev, beyaz cüce veya süpernova gibi son evreleri vardır.</p>
-      </article>
-      <article>
-        <h2>İklim Değişikliği</h2>
-        <p>İklim değişikliği, dünya üzerindeki doğal ve insan kaynaklı etkilerle atmosferdeki ortalama sıcaklıkların artmasıdır. Bu durum ekosistemler ve insan yaşamı üzerinde ciddi tehditler oluşturur.</p>
-      </article>
+      <h1>Teknoloji</h1>
+      <p>Teknoloji, insan ihtiyaçlarını karşılamak için geliştirilen araçlar, sistemler ve yöntemlerin genel adıdır. İşte teknoloji hakkında uzun ve detaylı bilgiler:</p>
+      <p>İlk çağlardan beri teknoloji, insan yaşamını kolaylaştırmak amacıyla sürekli gelişmiştir. Taş aletlerden modern bilgisayarlara kadar uzanan bu süreç, toplumların ilerlemesini sağlamıştır.</p>
+      <p>Günümüzde teknoloji, dijitalleşme, yapay zeka, robotik, biyoteknoloji gibi alanlarda hızla evrilmekte ve yaşamın hemen her alanını etkilemektedir.</p>
+      <p>İletişim teknolojileri, bilgiye hızlı erişim, üretim otomasyonu ve yenilenebilir enerji sistemleri gibi gelişmeler, dünya genelinde yaşam standartlarını yükseltmektedir.</p>
+      <p>Ancak teknolojiyle beraber etik, gizlilik ve çevresel sorunlar gibi yeni zorluklar da ortaya çıkmıştır. Bu nedenle sürdürülebilir ve bilinçli teknoloji kullanımı önem kazanmıştır.</p>
     `,
     kategori4: `
-      <h1>Sanat ve Edebiyat</h1>
-      <article>
-        <h2>Modern Sanat Akımları</h2>
-        <p>20. yüzyılın başlarında başlayan modern sanat akımları, geleneksel sanat anlayışını sorgulamış ve yeni ifade biçimleri ortaya koymuştur. Kübizm, sürrealizm ve ekspresyonizm gibi akımlar bu dönemin önemli temsilcileridir.</p>
-      </article>
-      <article>
-        <h2>Dünya Edebiyatından Örnekler</h2>
-        <p>Shakespeare'in oyunları, Dostoyevski'nin romanları ve Orhan Pamuk'un eserleri, dünya edebiyatının önemli parçalarıdır. Edebiyat, insanın duygularını ve düşüncelerini anlamamızda büyük rol oynar.</p>
-      </article>
-      <article>
-        <h2>Şiir ve Anlamı</h2>
-        <p>Şiir, kısa ve yoğun anlatımı ile duyguları etkileyici bir şekilde ifade eder. Türk edebiyatında Nazım Hikmet ve Cemal Süreya gibi şairler önemli eserler bırakmıştır.</p>
-      </article>
+      <h1>Kültür & Sanat</h1>
+      <p>Kültür ve sanat, insanlığın duygu, düşünce ve yaratıcılığını ifade eden en güzel araçlardır. Aşağıda kültür ve sanat üzerine kapsamlı bilgiler yer almaktadır:</p>
+      <p>Kültür, bir toplumun yaşam biçimi, inançları, adetleri, gelenekleri ve sosyal normlarını kapsar. Sanat ise bu kültürel birikimin estetik yansımalarıdır.</p>
+      <p>Resim, müzik, edebiyat, tiyatro, sinema gibi sanat dalları, insanların kendilerini ifade etme ve toplumsal bağ kurma yollarıdır.</p>
+      <p>Tarih boyunca farklı kültürler ve sanat akımları gelişmiş, birbirlerini etkilemiş ve dünya sanat tarihine zenginlik katmıştır. Rönesans, Barok, Empresyonizm gibi akımlar sanatın farklı yönlerini ortaya koymuştur.</p>
+      <p>Sanat, bireylerin duygusal deneyimlerini çoğaltır, empatiyi artırır ve toplumların kültürel kimliğini güçlendirir.</p>
     `,
     kategori5: `
-      <h1>Oyunlar</h1>
-      <p>Burada bilgi yarışmaları, doğru-yanlış testleri ve daha fazlası ile eğlenceli vakit geçirebilirsiniz.</p>
-      <div class="game-container" id="quiz1">
-        <h2>1. Doğru - Yanlış Testi</h2>
-        <p id="q1-question"></p>
-        <div class="true-false-btns">
-          <button id="q1-true">Doğru</button>
-          <button id="q1-false">Yanlış</button>
-        </div>
-        <p class="result-message" id="q1-result"></p>
-        <button class="next-btn" id="q1-next" style="display:none;">Sonraki Soru</button>
-      </div>
-
-      <div class="game-container" id="quiz2" style="margin-top:30px;">
-        <h2>2. Çoktan Seçmeli Test</h2>
-        <p id="q2-question"></p>
-        <div class="answers" id="q2-answers"></div>
-        <p class="result-message" id="q2-result"></p>
-        <button class="next-btn" id="q2-next" style="display:none;">Sonraki Soru</button>
-      </div>
-
-      <div class="game-container" id="quiz3" style="margin-top:30px;">
-        <h2>3. Eşleştirme Oyunu</h2>
-        <p>Doğru eşleştirmeleri yapınız:</p>
-        <ul id="match-list" style="list-style:none; padding:0;"></ul>
-        <button id="match-check" style="margin-top:15px;">Kontrol Et</button>
-        <p class="result-message" id="match-result"></p>
-      </div>
-
-      <div class="game-container" id="quiz4" style="margin-top:30px;">
-        <h2>4. Hızlı Cevap Oyunu</h2>
-        <p>Sorular hızlı geliyor, cevabı hızlı verin!</p>
-        <p id="fastq-question" style="font-weight:700; font-size:1.1rem;"></p>
-        <input type="text" id="fastq-answer" placeholder="Cevabınızı yazın" autocomplete="off" />
-        <button id="fastq-submit">Gönder</button>
-        <p class="result-message" id="fastq-result"></p>
-      </div>
-
-      <div class="game-container" id="quiz5" style="margin-top:30px;">
-        <h2>5. Çoktan Seçmeli Zor Test</h2>
-        <p id="q5-question"></p>
-        <div class="answers" id="q5-answers"></div>
-        <p class="result-message" id="q5-result"></p>
-        <button class="next-btn" id="q5-next" style="display:none;">Sonraki Soru</button>
+      <div id="game">
+        <h2>Futbolcu Bilme Oyunu</h2>
+        <div id="clues"></div>
+        <input type="text" id="answer" placeholder="Futbolcu adı..." autocomplete="off" aria-label="Futbolcu adı" />
+        <button id="submitBtn">Cevapla</button>
+        <button id="nextBtn" style="display:none;">Sonraki Soru</button>
+        <div id="result" role="alert" aria-live="polite"></div>
       </div>
     `
   };
 
-  // Sayfa yüklenince ana sayfa göster
+  // Sayfa yükleme fonksiyonu
   function loadPage(page) {
     content.innerHTML = pages[page] || '<h1>Sayfa Bulunamadı</h1>';
-    currentPage = page;
-    // Aktif butonu ayarla
+    // Aktif buton ayarla
     navButtons.forEach(btn => {
       btn.classList.toggle('active', btn.dataset.page === page);
       btn.setAttribute('aria-current', btn.dataset.page === page ? 'page' : 'false');
     });
-    // Oyunlar varsa başlat
-    if(page === 'kategori5') initGames();
+    if(page === 'kategori5') {
+      initGame();
+    }
   }
 
-  // Menü butonlarına tıklayınca sayfa yükle
+  // Nav butonlarına tıklanınca sayfa yükle
   navButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-      if(sidebar.classList.contains('open')) sidebar.classList.remove('open'); // Mobilde kapat
+      if(window.innerWidth <= 850) sidebar.classList.remove('open'); // mobilde menüyü kapat
       loadPage(btn.dataset.page);
     });
   });
 
-  // İlk sayfa
+  // Başlangıç sayfası
   let currentPage = 'home';
   loadPage(currentPage);
 
-  // --- OYUNLAR ---
-
-  // 1. Doğru - Yanlış Testi
-  const q1_questions = [
-    {q: "Dünya, Güneş'in etrafında döner.", a: true},
-    {q: "Elektrik akımı her zaman negatiften pozitife akar.", a: false},
-    {q: "Bir yıl 365 gündür.", a: true},
-    {q: "Su, kimyasal formülü H2O olmayan bir bileşiktir.", a: false}
-  ];
-  let q1_index = 0;
-  const q1_questionEl = document.getElementById('q1-question');
-  const q1_resultEl = document.getElementById('q1-result');
-  const q1_trueBtn = document.getElementById('q1-true');
-  const q1_falseBtn = document.getElementById('q1-false');
-  const q1_nextBtn = document.getElementById('q1-next');
-
-  function q1_loadQuestion() {
-    q1_questionEl.textContent = q1_questions[q1_index].q;
-    q1_resultEl.textContent = '';
-    q1_trueBtn.disabled = false;
-    q1_falseBtn.disabled = false;
-    q1_nextBtn.style.display = 'none';
-  }
-  function q1_checkAnswer(userAnswer) {
-    let correct = q1_questions[q1_index].a === userAnswer;
-    q1_resultEl.textContent = correct ? 'Doğru!' : 'Yanlış!';
-    q1_trueBtn.disabled = true;
-    q1_falseBtn.disabled = true;
-    q1_nextBtn.style.display = 'inline-block';
-  }
-  q1_trueBtn.addEventListener('click', () => q1_checkAnswer(true));
-  q1_falseBtn.addEventListener('click', () => q1_checkAnswer(false));
-  q1_nextBtn.addEventListener('click', () => {
-    q1_index++;
-    if(q1_index >= q1_questions.length) {
-      q1_resultEl.textContent = 'Test tamamlandı!';
-      q1_nextBtn.style.display = 'none';
-      q1_trueBtn.style.display = 'none';
-      q1_falseBtn.style.display = 'none';
-    } else {
-      q1_loadQuestion();
+  // Hamburger menü aç/kapa
+  hamburger.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+  });
+  hamburger.addEventListener('keypress', (e) => {
+    if(e.key === 'Enter' || e.key === ' ') {
+      sidebar.classList.toggle('open');
     }
   });
 
-  // Sayfa yüklendiğinde yükle
-  document.addEventListener('DOMContentLoaded', () => {
-    if(currentPage === 'kategori5') q1_loadQuestion();
+  // Gece modu aç/kapa
+  darkModeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    let pressed = document.body.classList.contains('dark-mode');
+    darkModeToggle.setAttribute('aria-pressed', pressed);
   });
 
-  // 2. Çoktan Seçmeli Test
-  const q2_questions = [
+  // ----------------
+  // Futbolcu Oyunu JS
+  // ----------------
+  const players = [
     {
-      q: "Dünyanın en büyük gezegeni hangisidir?",
-      options: ["Satürn", "Jüpiter", "Mars", "Venüs"],
-      answer: "Jüpiter"
+      clues: ["Fransız", "Real Madrid", "Forvet", "Forma No: 9"],
+      answer: "mbappe"
     },
     {
-      q: "İnsan vücudunda kaç tane kemik vardır?",
-      options: ["206", "210", "201", "215"],
-      answer: "206"
+      clues: ["Portekizli", "Manchester United", "Forvet", "Forma No: 7"],
+      answer: "ronaldo"
     },
     {
-      q: "Işık saniyede kaç km yol alır?",
-      options: ["300.000", "150.000", "200.000", "100.000"],
-      answer: "300.000"
+      clues: ["Arjantinli", "PSG", "Forvet", "Forma No: 30"],
+      answer: "messi"
+    },
+    {
+      clues: ["Norveçli", "Manchester United", "Forvet", "Forma No: 9"],
+      answer: "haaland"
+    },
+    {
+      clues: ["Polonyalı", "Bayern Münih", "Forvet", "Forma No: 9"],
+      answer: "lewandowski"
     }
   ];
-  let q2_index = 0;
-  const q2_questionEl = document.getElementById('q2-question');
-  const q2_answersEl = document.getElementById('q2-answers');
-  const q2_resultEl = document.getElementById('q2-result');
-  const q2_nextBtn = document.getElementById('q2-next');
 
-  function q2_loadQuestion() {
-    let current = q2_questions[q2_index];
-    q2_questionEl.textContent = current.q;
-    q2_answersEl.innerHTML = '';
-    q2_resultEl.textContent = '';
-    q2_nextBtn.style.display = 'none';
-    current.options.forEach(opt => {
-      const btn = document.createElement('button');
-      btn.textContent = opt;
-      btn.addEventListener('click', () => {
-        if(opt === current.answer){
-          q2_resultEl.textContent = 'Doğru!';
-          q2_resultEl.style.color = 'green';
-        } else {
-          q2_resultEl.textContent = `Yanlış! Doğru cevap: ${current.answer}`;
-          q2_resultEl.style.color = 'red';
-        }
-        Array.from(q2_answersEl.children).forEach(b => b.disabled = true);
-        q2_nextBtn.style.display = 'inline-block';
-      });
-      q2_answersEl.appendChild(btn);
-    });
-  }
-  q2_nextBtn.addEventListener('click', () => {
-    q2_index++;
-    if(q2_index >= q2_questions.length){
-      q2_resultEl.textContent = 'Test tamamlandı!';
-      q2_nextBtn.style.display = 'none';
-      q2_answersEl.innerHTML = '';
-    } else {
-      q2_loadQuestion();
-    }
-  });
+  let currentIndex = 0;
 
-  // 3. Eşleştirme Oyunu
-  const matchPairs = [
-    {left: 'Dünya', right: 'Güneş Sistemi'},
-    {left: 'Python', right: 'Programlama Dili'},
-    {left: 'Van Gogh', right: 'Ressam'},
-    {left: 'Mozart', right: 'Besteci'},
-    {left: 'Kara Delik', right: 'Uzay Cismi'}
-  ];
+  const cluesDiv = document.createElement('div');
+  const answerInput = document.createElement('input');
+  const submitBtn = document.createElement('button');
+  const nextBtn = document.createElement('button');
+  const resultDiv = document.createElement('div');
 
-  function initMatchGame() {
-    const matchList = document.getElementById('match-list');
-    const matchResult = document.getElementById('match-result');
-    matchList.innerHTML = '';
-    matchResult.textContent = '';
+  function initGame() {
+    // Elemanları sayfadan seç
+    const gameDiv = document.getElementById('game');
+    if(!gameDiv) return;
 
-    // Karışık sağ taraf
-    const rights = matchPairs.map(p => p.right).sort(() => Math.random() - 0.5);
+    cluesDiv.id = 'clues';
+    answerInput.id = 'answer';
+    answerInput.type = 'text';
+    answerInput.placeholder = 'Futbolcu adı...';
+    answerInput.autocomplete = 'off';
+    answerInput.setAttribute('aria-label', 'Futbolcu adı');
 
-    matchPairs.forEach((pair, i) => {
-      const li = document.createElement('li');
-      li.style.marginBottom = '15px';
+    submitBtn.id = 'submitBtn';
+    submitBtn.textContent = 'Cevapla';
 
-      const leftSpan = document.createElement('span');
-      leftSpan.textContent = pair.left;
-      leftSpan.style.display = 'inline-block';
-      leftSpan.style.width = '120px';
-      leftSpan.style.fontWeight = '700';
+    nextBtn.id = 'nextBtn';
+    nextBtn.textContent = 'Sonraki Soru';
+    nextBtn.style.display = 'none';
 
-      const select = document.createElement('select');
-      select.style.padding = '6px';
-      select.style.borderRadius = '6px';
-      rights.forEach(r => {
-        const option = document.createElement('option');
-        option.value = r;
-        option.textContent = r;
-        select.appendChild(option);
-      });
+    resultDiv.id = 'result';
+    resultDiv.setAttribute('role', 'alert');
+    resultDiv.setAttribute('aria-live', 'polite');
 
-      li.appendChild(leftSpan);
-      li.appendChild(select);
-      matchList.appendChild(li);
-    });
+    // Temizle varsa
+    gameDiv.innerHTML = '';
+    gameDiv.appendChild(document.createElement('h2')).textContent = 'Futbolcu Bilme Oyunu';
+    gameDiv.appendChild(cluesDiv);
+    gameDiv.appendChild(answerInput);
+    gameDiv.appendChild(submitBtn);
+    gameDiv.appendChild(nextBtn);
+    gameDiv.appendChild(resultDiv);
 
-    document.getElementById('match-check').onclick = () => {
-      let correctCount = 0;
-      const lis = matchList.querySelectorAll('li');
-      lis.forEach((li, idx) => {
-        const select = li.querySelector('select');
-        if(select.value === matchPairs[idx].right) {
-          correctCount++;
-          select.style.borderColor = 'green';
-        } else {
-          select.style.borderColor = 'red';
-        }
-      });
-      if(correctCount === matchPairs.length) {
-        matchResult.textContent = 'Tebrikler! Tüm eşleştirmeler doğru.';
-        matchResult.style.color = 'green';
-      } else {
-        matchResult.textContent = `Doğru eşleşmeler: ${correctCount} / ${matchPairs.length}`;
-        matchResult.style.color = 'red';
+    loadQuestion();
+
+    submitBtn.onclick = checkAnswer;
+    nextBtn.onclick = nextQuestion;
+
+    // Enter ile cevap gönderme
+    answerInput.addEventListener('keypress', (e) => {
+      if(e.key === 'Enter'){
+        checkAnswer();
       }
-    }
-  }
-
-  // 4. Hızlı Cevap Oyunu
-  const fastQuestions = [
-    {q:"Dünyanın uydusu nedir?", a:"Ay"},
-    {q:"En büyük gezegen hangisidir?", a:"Jüpiter"},
-    {q:"Su kaç derece kaynar?", a:"100"},
-    {q:"İnsan vücudundaki en büyük organ nedir?", a:"Deri"},
-    {q:"Türkiye'nin başkenti neresidir?", a:"Ankara"}
-  ];
-  let fastq_index = 0;
-  const fastq_questionEl = document.getElementById('fastq-question');
-  const fastq_answerInput = document.getElementById('fastq-answer');
-  const fastq_resultEl = document.getElementById('fastq-result');
-  const fastq_submitBtn = document.getElementById('fastq-submit');
-
-  function fastq_loadQuestion() {
-    fastq_questionEl.textContent = fastQuestions[fastq_index].q;
-    fastq_answerInput.value = '';
-    fastq_resultEl.textContent = '';
-    fastq_answerInput.focus();
-  }
-
-  fastq_submitBtn.onclick = () => {
-    const userAnswer = fastq_answerInput.value.trim().toLowerCase();
-    const correctAnswer = fastQuestions[fastq_index].a.toLowerCase();
-    if(userAnswer === correctAnswer){
-      fastq_resultEl.textContent = "Doğru!";
-      fastq_resultEl.style.color = 'green';
-    } else {
-      fastq_resultEl.textContent = `Yanlış! Doğru cevap: ${fastQuestions[fastq_index].a}`;
-      fastq_resultEl.style.color = 'red';
-    }
-    fastq_index++;
-    if(fastq_index >= fastQuestions.length){
-      fastq_resultEl.textContent += " Oyun tamamlandı!";
-      fastq_submitBtn.disabled = true;
-      fastq_answerInput.disabled = true;
-    } else {
-      setTimeout(fastq_loadQuestion, 1500);
-    }
-  }
-
-  // 5. Çoktan Seçmeli Zor Test
-  const q5_questions = [
-    {
-      q: "Evrenin genişlemesini ilk kim keşfetmiştir?",
-      options: ["Edwin Hubble", "Albert Einstein", "Isaac Newton", "Galileo Galilei"],
-      answer: "Edwin Hubble"
-    },
-    {
-      q: "Türk edebiyatında ilk roman hangisidir?",
-      options: ["Şair Evlenmesi", "Araba Sevdası", "Tutunamayanlar", "Çalıkuşu"],
-      answer: "Şair Evlenmesi"
-    },
-    {
-      q: "Dünyanın en derin noktası neresi?",
-      options: ["Mariana Çukuru", "Tonga Çukuru", "Java Çukuru", "Puerto Rico Çukuru"],
-      answer: "Mariana Çukuru"
-    }
-  ];
-  let q5_index = 0;
-  const q5_questionEl = document.getElementById('q5-question');
-  const q5_answersEl = document.getElementById('q5-answers');
-  const q5_resultEl = document.getElementById('q5-result');
-  const q5_nextBtn = document.getElementById('q5-next');
-
-  function q5_loadQuestion() {
-    let current = q5_questions[q5_index];
-    q5_questionEl.textContent = current.q;
-    q5_answersEl.innerHTML = '';
-    q5_resultEl.textContent = '';
-    q5_nextBtn.style.display = 'none';
-    current.options.forEach(opt => {
-      const btn = document.createElement('button');
-      btn.textContent = opt;
-      btn.addEventListener('click', () => {
-        if(opt === current.answer){
-          q5_resultEl.textContent = 'Doğru!';
-          q5_resultEl.style.color = 'green';
-        } else {
-          q5_resultEl.textContent = `Yanlış! Doğru cevap: ${current.answer}`;
-          q5_resultEl.style.color = 'red';
-        }
-        Array.from(q5_answersEl.children).forEach(b => b.disabled = true);
-        q5_nextBtn.style.display = 'inline-block';
-      });
-      q5_answersEl.appendChild(btn);
     });
   }
-  q5_nextBtn.addEventListener('click', () => {
-    q5_index++;
-    if(q5_index >= q5_questions.length){
-      q5_resultEl.textContent = 'Test tamamlandı!';
-      q5_nextBtn.style.display = 'none';
-      q5_answersEl.innerHTML = '';
-    } else {
-      q5_loadQuestion();
-    }
-  });
 
-  // Başlangıçta oyunları hazırla
-  function initGames() {
-    // Quiz1
-    q1_index = 0;
-    if(document.getElementById('q1-question')) q1_loadQuestion();
-
-    // Quiz2
-    q2_index = 0;
-    if(document.getElementById('q2-question')) q2_loadQuestion();
-
-    // Match game
-    if(document.getElementById('match-list')) initMatchGame();
-
-    // Fast quiz
-    fastq_index = 0;
-    if(document.getElementById('fastq-question')) fastq_loadQuestion();
-
-    // Quiz5
-    q5_index = 0;
-    if(document.getElementById('q5-question')) q5_loadQuestion();
+  function loadQuestion() {
+    cluesDiv.innerHTML = '';
+    players[currentIndex].clues.forEach(clue => {
+      const div = document.createElement('div');
+      div.className = 'clue';
+      div.textContent = clue;
+      cluesDiv.appendChild(div);
+    });
+    answerInput.value = '';
+    answerInput.disabled = false;
+    submitBtn.style.display = 'inline-block';
+    nextBtn.style.display = 'none';
+    resultDiv.textContent = '';
+    answerInput.focus();
   }
 
+  function checkAnswer() {
+    const userAnswer = answerInput.value.trim().toLowerCase();
+    if(userAnswer === '') {
+      alert('Lütfen bir cevap girin!');
+      return;
+    }
+    const correctAnswer = players[currentIndex].answer.toLowerCase();
+    if(userAnswer === correctAnswer) {
+      resultDiv.style.color = '#0f0';
+      resultDiv.textContent = 'Tebrikler! Doğru cevap.';
+    } else {
+      resultDiv.style.color = '#f00';
+      resultDiv.textContent = `Yanlış! Doğru cevap: ${players[currentIndex].answer.charAt(0).toUpperCase() + players[currentIndex].answer.slice(1)}`;
+    }
+    answerInput.disabled = true;
+    submitBtn.style.display = 'none';
+    nextBtn.style.display = 'inline-block';
+  }
+
+  function nextQuestion() {
+    currentIndex++;
+    if(currentIndex >= players.length) {
+      currentIndex = 0;
+      alert("Tüm sorular tamamlandı, başa dönülüyor!");
+    }
+    loadQuestion();
+  }
 </script>
 
 </body>

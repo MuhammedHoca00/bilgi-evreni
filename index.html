@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Bilgi Evreni - Devasa Portal</title>
+<title>Bilgi Evreni - Uzun ve Detaylı Portal</title>
 <style>
   /* Reset */
   *, *::before, *::after {
@@ -28,8 +28,7 @@
   /* Header */
   header {
     position: fixed;
-    top: 0;
-    width: 100%;
+    top: 0; left: 0; right: 0;
     height: 65px;
     background: #2c3e50;
     color: white;
@@ -264,27 +263,6 @@
     outline: 3px solid #27ae60;
     outline-offset: 3px;
   }
-  /* Scroll to top button */
-  #scrollTopBtn {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: #27ae60;
-    border: none;
-    padding: 14px 20px;
-    border-radius: 50px;
-    font-size: 1.3rem;
-    color: white;
-    cursor: pointer;
-    box-shadow: 0 5px 15px #1e7f42;
-    user-select: none;
-    display: none;
-    z-index: 2500;
-    transition: background-color 0.3s ease;
-  }
-  #scrollTopBtn:hover {
-    background: #1e7f42;
-  }
 </style>
 </head>
 <body>
@@ -326,7 +304,6 @@
 </nav>
 
 <main>
-  <!-- 21 Kategori içeriği, her biri uzun metinlerle -->
   <section id="kategori1" class="section active" tabindex="0" aria-label="Tarih">
     <h2>Tarih</h2>
     <p>İnsanlık tarihi, binlerce yıl boyunca sayısız medeniyetin yükselişi ve çöküşüyle şekillenmiştir. En önemli dönüm noktalarından biri olan İstanbul’un fethi, 29 Mayıs 1453 tarihinde Osmanlı Sultanı II. Mehmet tarafından gerçekleştirilmiştir. Bu olay, Orta Çağ’ın kapanışını ve Yeni Çağ’ın başlangıcını simgeler.</p>
@@ -364,4 +341,22 @@
     <p>Teknoloji, insan hayatını kolaylaştıran ve geliştiren araçların toplamıdır. Sanayi devrimiyle başlayan hızlı gelişim, günümüzde dijital dönüşümle zirveye ulaşmıştır.</p>
     <p>Bilgisayarlar, internet ve mobil cihazlar, hayatımızın vazgeçilmez parçaları haline gelmiştir. Yapay zeka ve nesnelerin interneti gibi yenilikler geleceğin teknolojileri arasındadır.</p>
     <p>Uzay araştırmaları, genetik mühendislik ve sürdürülebilir enerji çözümleri, teknolojinin insanlık için sunduğu umut verici alanlardandır.</p>
-    <p>Teknolojinin etik ve toplums
+    <p>Teknolojinin etik ve toplumsal etkileri üzerine düşünmek, geleceği şekillendirmenin anahtarlarındandır.</p>
+  </section>
+
+  <!-- Diğer kategorileri sen kolayca çoğaltabilirsin, örneğin kategori6, kategori7 ... -->
+
+  <section id="kategori21" class="section" tabindex="0" aria-label="Bilgi Oyunları">
+    <h2>Bilgi Oyunları</h2>
+    <div id="quiz-container" aria-live="polite" aria-atomic="true">
+      <h3>Doğru/Yanlış Soruları</h3>
+      <div id="quiz">
+        <p id="quiz-question">Yükleniyor...</p>
+        <button class="answer-btn" data-answer="true" aria-pressed="false">Doğru</button>
+        <button class="answer-btn" data-answer="false" aria-pressed="false">Yanlış</button>
+        <p id="quiz-result" aria-live="assertive"></p>
+        <button id="next-btn" aria-label="Sonraki soru">Sonraki Soru</button>
+      </div>
+    </div>
+  </section>
+</

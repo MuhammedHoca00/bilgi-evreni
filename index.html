@@ -3,432 +3,337 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Bilgi Evreni - Detaylı Kategoriler & Modern Menü</title>
+<title>Bilgi Evreni - Tam Çalışan Site</title>
 <style>
-  /* === Reset === */
+  /* Reset */
   *, *::before, *::after {
-    margin: 0; padding: 0; box-sizing: border-box;
+    margin:0; padding:0; box-sizing: border-box;
   }
-  html { scroll-behavior: smooth; }
   body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f0f5f2;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f9f7;
     color: #222;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    overflow-x: hidden;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
   body.dark {
-    background: #121212;
-    color: #ddd;
-  }
-  a {
-    color: #27ae60;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  a:hover, a:focus {
-    color: #2ecc71;
-    outline: none;
+    background-color: #121212;
+    color: #eee;
   }
 
-  /* === HEADER === */
+  /* HEADER */
   header {
     position: fixed;
     top: 0; left: 0; right: 0;
-    height: 65px;
-    background: #1e272e;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    height: 60px;
+    background: #1a3d2e;
+    color: #2ecc71;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 1.8rem;
-    z-index: 10000;
-  }
-  header h1 {
+    padding: 0 1.5rem;
     font-weight: 900;
-    font-size: 1.8rem;
-    color: #2ecc71;
-    user-select: none;
-    letter-spacing: 1.1px;
+    font-size: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    z-index: 9999;
   }
-  #darkToggle {
-    background: none;
-    border: 2.5px solid #2ecc71;
-    color: #2ecc71;
-    font-size: 1.4rem;
-    padding: 7px 17px;
-    border-radius: 36px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    user-select: none;
-  }
-  #darkToggle:hover, #darkToggle:focus {
-    background: #2ecc71;
-    color: #121212;
-    outline: none;
-    box-shadow: 0 0 15px #27ae60aa;
-  }
-
-  /* === HAMBURGER === */
+  /* Hamburger */
   #hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 32px;
-    height: 26px;
     cursor: pointer;
-    z-index: 10002;
+    width: 30px;
+    height: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   #hamburger span {
-    width: 100%;
     height: 4px;
     background: #2ecc71;
-    border-radius: 4px;
-    transition: all 0.35s ease;
+    border-radius: 2px;
+    transition: all 0.3s ease;
   }
-  /* Hamburger to X */
+  /* Hamburger X toggle */
   #hamburger.open span:nth-child(1) {
-    transform: translateY(10px) rotate(45deg);
+    transform: rotate(45deg) translate(5px, 5px);
   }
   #hamburger.open span:nth-child(2) {
     opacity: 0;
   }
   #hamburger.open span:nth-child(3) {
-    transform: translateY(-10px) rotate(-45deg);
+    transform: rotate(-45deg) translate(5px, -5px);
   }
 
-  /* === NAVIGATION === */
+  /* Side Nav */
   nav {
     position: fixed;
-    top: 65px;
+    top: 60px;
     left: 0;
-    width: 320px;
-    height: calc(100vh - 65px);
-    background: #192a20;
-    box-shadow: 2px 0 18px rgba(0,0,0,0.7);
-    padding: 1.8rem 1.4rem;
+    width: 280px;
+    height: calc(100vh - 60px);
+    background: #163a24;
+    padding: 1rem 1.2rem;
     overflow-y: auto;
-    transform: translateX(-120%);
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 9999;
+    transform: translateX(-300px);
+    transition: transform 0.4s ease;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.7);
+    z-index: 9998;
   }
   nav.open {
     transform: translateX(0);
   }
   nav::-webkit-scrollbar {
-    width: 10px;
-  }
-  nav::-webkit-scrollbar-track {
-    background: #163118;
+    width: 7px;
   }
   nav::-webkit-scrollbar-thumb {
     background: #2ecc71;
-    border-radius: 16px;
-  }
-  /* NAV CLOSE BUTTON */
-  #nav-close-btn {
-    position: absolute;
-    top: 12px;
-    right: 14px;
-    font-size: 3rem;
-    background: transparent;
-    border: none;
-    color: #27ae60;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    user-select: none;
-  }
-  #nav-close-btn:hover, #nav-close-btn:focus {
-    color: #2ecc71;
-    outline: none;
+    border-radius: 10px;
   }
 
-  /* --- Accordion Kategoriler --- */
-  .category {
-    border-radius: 10px;
-    background: #22432c;
-    margin-bottom: 0.75rem;
-    box-shadow: 0 4px 9px rgba(0,0,0,0.45);
-    user-select: none;
+  /* Close button */
+  #close-nav-btn {
+    background: none;
+    border: none;
+    color: #2ecc71;
+    font-size: 2.5rem;
+    cursor: pointer;
+    float: right;
+    margin-bottom: 1rem;
   }
-  .category-header {
-    padding: 16px 22px;
+  #close-nav-btn:hover {
+    color: #27ae60;
+  }
+
+  /* Accordion categories */
+  .category {
+    background: #1e462b;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.6);
+  }
+  .category button.header-btn {
+    width: 100%;
+    background: none;
+    border: none;
+    color: #a9d6a5;
     font-weight: 700;
-    font-size: 1.15rem;
-    color: #a3d389;
+    font-size: 1.1rem;
+    padding: 1rem 1.2rem;
+    text-align: left;
+    cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    cursor: pointer;
-    transition: background-color 0.35s ease;
+    border-radius: 10px;
+    user-select: none;
   }
-  .category-header:hover, .category-header:focus {
-    background: #2ecc71;
+  .category button.header-btn:hover,
+  .category button.header-btn:focus {
+    background: #27ae60;
     color: #121212;
     outline: none;
   }
-  .category-header[aria-expanded="true"] {
-    background: #2ecc71;
-    color: #121212;
+  .category button.header-btn svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+    fill: currentColor;
   }
-  .category-header svg {
-    transition: transform 0.35s ease;
-    width: 22px; height: 22px;
-    fill: #a3d389;
-  }
-  .category-header[aria-expanded="true"] svg {
+  .category button.header-btn[aria-expanded="true"] svg {
     transform: rotate(180deg);
-    fill: #121212;
-  }
-  .category-content {
-    background: #2a4b2d;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease, padding 0.3s ease;
-    padding: 0 1.6rem;
-  }
-  .category-content.open {
-    max-height: 900px;
-    padding-bottom: 1.4rem;
-  }
-  .category-content p {
-    margin: 1rem 0;
-    line-height: 1.75;
-    color: #d4e9bf;
-    font-size: 1rem;
-  }
-  /* Scrollbar kategori içinde */
-  .category-content::-webkit-scrollbar {
-    width: 6px;
-  }
-  .category-content::-webkit-scrollbar-thumb {
-    background: #1b6e3b;
-    border-radius: 8px;
   }
 
-  /* --- MAIN --- */
-  main {
-    margin-left: 320px;
-    padding: 85px 3rem 3rem 3rem;
-    max-width: 900px;
-    transition: margin-left 0.4s ease;
-    flex-grow: 1;
+  .category-content {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 1.2rem;
+    background: #2b6b37;
+    color: #d8e8c5;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+    border-radius: 0 0 10px 10px;
+    user-select: text;
   }
-  main.shifted {
+  .category-content.open {
+    padding: 1rem 1.2rem;
+    max-height: 800px; /* yeterli yüksekliği ver */
+  }
+  .category-content p {
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+  }
+
+  /* Main content */
+  main {
+    margin-left: 280px;
+    padding: 80px 2rem 2rem 2rem;
+    transition: margin-left 0.4s ease;
+  }
+  main.shrink {
     margin-left: 0;
   }
 
-  /* --- SECTIONS --- */
-  section {
-    display: none;
-    animation: fadeInUp 0.55s ease forwards;
-  }
-  section.active {
-    display: block;
-  }
-  h2 {
-    font-size: 2.8rem;
-    margin-bottom: 1.3rem;
-    font-weight: 900;
-    color: #27ae60;
-    border-left: 8px solid #2ecc71;
-    padding-left: 12px;
-    user-select: none;
-  }
-  p {
-    font-size: 1.2rem;
-    line-height: 1.9;
-    margin-bottom: 1.35rem;
-  }
-
-  /* --- Animasyonlar --- */
-  @keyframes fadeInUp {
-    from {opacity: 0; transform: translateY(30px);}
-    to {opacity: 1; transform: translateY(0);}
-  }
-
-  /* --- QUIZ --- */
-  #quiz {
-    background: #27ae60;
-    border-radius: 16px;
-    padding: 2.4rem 3rem;
-    box-shadow: 0 18px 36px rgba(39, 174, 96, 0.7);
-    max-width: 760px;
-    color: #121212;
-    margin-top: 3rem;
-  }
-  #quiz h3 {
-    margin-bottom: 1.2rem;
-    font-weight: 900;
-    font-size: 1.9rem;
-    user-select: none;
-    text-shadow: 0 1px 2px #1f5327;
-  }
-  #quiz-question {
-    font-weight: 700;
-    font-size: 1.5rem;
-    min-height: 80px;
-    margin-bottom: 1.8rem;
-    user-select: none;
-  }
-  .answer-btn {
-    background: #2ecc71;
-    border: none;
-    border-radius: 44px;
-    padding: 1.05rem 3.2rem;
-    margin-right: 1.3rem;
-    margin-bottom: 1.3rem;
-    font-weight: 700;
-    font-size: 1.25rem;
+  /* Dark mode toggle */
+  #dark-mode-toggle {
     cursor: pointer;
-    transition: background-color 0.33s ease;
+    font-size: 1.6rem;
+    background: none;
+    border: 2px solid #2ecc71;
+    color: #2ecc71;
+    padding: 6px 14px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
     user-select: none;
-    color: #121212;
-    box-shadow: 0 5px 10px #27ae6011;
   }
-  .answer-btn:hover:not(:disabled),
-  .answer-btn:focus:not(:disabled) {
-    background: #27ae60;
-    outline: none;
-    box-shadow: 0 8px 16px #27ae6033;
-  }
-  .answer-btn:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-    box-shadow: none;
-  }
-  #quiz-result {
-    margin-top: 1.8rem;
-    font-weight: 900;
-    font-size: 1.55rem;
-    min-height: 48px;
-    color: #fff;
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.85);
-  }
-  #next-btn {
-    background: #f39c12;
-    border: none;
-    border-radius: 44px;
-    padding: 1.15rem 3.8rem;
-    font-weight: 900;
-    font-size: 1.4rem;
-    cursor: pointer;
-    margin-top: 3.2rem;
-    user-select: none;
-    color: #2c3e50;
-    transition: background-color 0.33s ease;
-    display: none;
-    box-shadow: 0 6px 15px #d6891077;
-  }
-  #next-btn:hover,
-  #next-btn:focus {
-    background: #d68910;
-    outline: none;
-    box-shadow: 0 9px 21px #d68910cc;
-  }
-  /* Gece modu quiz uyumlu */
-  body.dark #quiz {
+  #dark-mode-toggle:hover,
+  #dark-mode-toggle:focus {
     background: #2ecc71;
     color: #121212;
-    box-shadow: 0 20px 48px #27ae60cc;
+    outline: none;
   }
 
-  /* === ACCESSIBILITY FOCUS === */
-  a:focus, button:focus {
-    outline: 3px solid #27ae60;
-    outline-offset: 3px;
-  }
-
-  /* === RESPONSİVE === */
+  /* Responsive */
   @media (max-width: 900px) {
-    #hamburger { display: flex; }
     nav {
-      width: 280px;
-      top: 65px;
-      height: calc(100vh - 65px);
-      background: #192a20;
-      box-shadow: 4px 0 32px rgba(0,0,0,0.9);
-      transform: translateX(-120%);
+      width: 220px;
+      transform: translateX(-280px);
     }
     nav.open {
       transform: translateX(0);
     }
     main {
       margin-left: 0;
-      padding: 85px 1.6rem 1.6rem 1.6rem;
+      padding: 80px 1rem 1rem 1rem;
     }
   }
+
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Bilgi Evreni</h1>
-  <div id="hamburger" tabindex="0" role="button" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="side-nav">
-    <span></span><span></span><span></span>
+  <div id="hamburger" aria-label="Menüyü aç/kapat" role="button" tabindex="0" aria-expanded="false">
+    <span></span>
+    <span></span>
+    <span></span>
   </div>
-  <button id="darkToggle" aria-pressed="false" aria-label="Gece modunu aç veya kapat">🌙</button>
+  <div>Bilgi Evreni</div>
+  <button id="dark-mode-toggle" aria-pressed="false" aria-label="Gece modunu aç veya kapat">🌙</button>
 </header>
 
-<nav id="side-nav" aria-label="Kategori Navigasyonu" aria-hidden="true">
-  <button id="nav-close-btn" aria-label="Menüyü kapat" title="Menüyü kapat">&times;</button>
+<nav aria-label="Kategori Menüsü" id="side-nav" aria-hidden="true">
+  <button id="close-nav-btn" aria-label="Menüyü kapat">&times;</button>
 
-  <!-- Accordion Kategoriler -->
   <div class="category">
-    <button class="category-header" aria-expanded="false" aria-controls="content1" id="cat1-btn" tabindex="0">
+    <button class="header-btn" aria-expanded="false" aria-controls="cat1-content" id="cat1-btn">
       Tarih
-      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5H7z"/></svg>
     </button>
-    <div class="category-content" id="content1" role="region" aria-labelledby="cat1-btn" tabindex="0">
-      <p>İstanbul'un fethi, 29 Mayıs 1453'te gerçekleşmiştir. II. Mehmet önderliğindeki Osmanlı ordusu, Bizans'ı yıkarak Orta Çağ'ı kapatıp Yeni Çağ'ı açmıştır.</p>
-      <p>Antik Roma ve Yunan uygarlıkları, hukuk ve sanat açısından bugünkü medeniyetlere ilham vermiştir.</p>
-      <p>20. yüzyılda dünya savaşları ve teknoloji insanlık tarihini derinden etkilemiştir.</p>
-      <p>Tarih, geçmişin izlerini sürerek bugünümüzü anlamamıza yardım eder.</p>
-      <p>Osmanlı, Bizans, Roma imparatorlukları insanlık için önemli dersler barındırır.</p>
-      <p>Kültürler ve medeniyetler tarih boyunca şekillenip kaynaşmıştır.</p>
+    <div id="cat1-content" class="category-content" role="region" aria-labelledby="cat1-btn" tabindex="0">
+      <p>İstanbul'un fethi 29 Mayıs 1453'te gerçekleşmiştir. Osmanlılar, Bizans'ın son direnişini kırarak Orta Çağ'ı kapatıp Yeni Çağ'ı açtı.</p>
+      <p>Rönesans ve Aydınlanma dönemleri modern dünyanın temel taşlarıdır.</p>
+      <p>Tarih, insanlığın kolektif hafızasıdır ve kültürleri şekillendirir.</p>
     </div>
   </div>
 
   <div class="category">
-    <button class="category-header" aria-expanded="false" aria-controls="content2" id="cat2-btn" tabindex="0">
+    <button class="header-btn" aria-expanded="false" aria-controls="cat2-content" id="cat2-btn">
       Bilim
-      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5H7z"/></svg>
     </button>
-    <div class="category-content" id="content2" role="region" aria-labelledby="cat2-btn" tabindex="0">
-      <p>Bilim doğayı anlamak için yapılan sistematik çalışmadır. Fizik, kimya ve biyoloji önemli alanlardır.</p>
-      <p>Newton hareket yasaları ve Einstein görelilik teorisi fiziğin temel taşlarıdır.</p>
-      <p>Genetik, DNA'nın yapısını çözerek tıpta devrim yaratmıştır.</p>
-      <p>Yapay zeka ve robotik günümüzün hızla gelişen bilim dallarındandır.</p>
-      <p>Bilimsel yöntem deney ve gözlem yoluyla bilgi üretir.</p>
-      <p>Kara delikler ve evrenin kökeni halen merak edilen konulardır.</p>
+    <div id="cat2-content" class="category-content" role="region" aria-labelledby="cat2-btn" tabindex="0">
+      <p>Bilim, evreni anlamak için sistematik araştırmadır.</p>
+      <p>Fizik, kimya, biyoloji ve matematik temel bilim dallarıdır.</p>
+      <p>Newton’un hareket yasaları ve Einstein’ın görelilik teorisi bilimin devrimlerindendir.</p>
     </div>
   </div>
 
   <div class="category">
-    <button class="category-header" aria-expanded="false" aria-controls="content3" id="cat3-btn" tabindex="0">
+    <button class="header-btn" aria-expanded="false" aria-controls="cat3-content" id="cat3-btn">
       Futbol
-      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5H7z"/></svg>
     </button>
-    <div class="category-content" id="content3" role="region" aria-labelledby="cat3-btn" tabindex="0">
-      <p>Futbol dünyada en çok takip edilen spordur. 11 oyuncudan oluşan takımlar yarışır.</p>
-      <p>Dünya Kupası, futbolun zirvesidir ve 4 yılda bir düzenlenir.</p>
-      <p>Pelé, Maradona, Messi ve Ronaldo futbol tarihinin efsanelerindendir.</p>
-      <p>Teknik direktörler ve taktikler maçları etkiler, modern futbol teknolojiyle birleşir.</p>
-      <p>VAR gibi teknolojiler futbolun adaletini arttırmak için kullanılır.</p>
-      <p>Maçlarda pozisyon ve oyun stilleri sonucu belirler.</p>
+    <div id="cat3-content" class="category-content" role="region" aria-labelledby="cat3-btn" tabindex="0">
+      <p>Futbol dünyanın en çok takip edilen sporudur.</p>
+      <p>Dünya Kupası dört yılda bir yapılır ve futbolun zirvesidir.</p>
+      <p>Messi, Ronaldo, Pele gibi isimler futbolun efsanelerindendir.</p>
     </div>
   </div>
 
-  <div class="category">
-    <button class="category-header" aria-expanded="false" aria-controls="content4" id="cat4-btn" tabindex="0">
-      Sanat
-      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5H7z"/></svg>
-    </button>
-    <div class="category-content" id="content4" role="region" aria-labelledby="cat4-btn" tabindex="0">
-      <p>Sanat insan duygu ve düşüncelerinin ifadesidir. Resim, heykel, müzik gibi dalları vardır.</p>
-      <p>Rönesans dönemi, da Vinci ve Michelangelo'nun eserleriyle sanat tarihini değiştirmiştir.</p>
-      <p>Modern sanat akımları sınırları zorlamış ve yeni teknikler geliştirmiştir.</p>
-      <p>Empresyonizm, sürrealizm ve kübizm önemli modern akımlardır
+</nav>
+
+<main id="main-content">
+  <h2>Bilgi Evreni'ne Hoşgeldiniz!</h2>
+  <p>Sol üst köşedeki menü ikonuna tıklayarak kategorilere ulaşabilir, kategori başlıklarına tıklayarak içerikleri görebilirsiniz.</p>
+  <p>Gece modu butonuyla ekran rengini değiştirebilirsiniz.</p>
+</main>
+
+<script>
+  // Hamburger ve menu toggle
+  const hamburger = document.getElementById('hamburger');
+  const nav = document.getElementById('side-nav');
+  const closeNavBtn = document.getElementById('close-nav-btn');
+  const mainContent = document.getElementById('main-content');
+  
+  function openNav() {
+    nav.classList.add('open');
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    nav.setAttribute('aria-hidden', 'false');
+    if(window.innerWidth > 900) {
+      mainContent.classList.remove('shrink');
+    }
+  }
+  function closeNav() {
+    nav.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    nav.setAttribute('aria-hidden', 'true');
+    if(window.innerWidth > 900) {
+      mainContent.classList.remove('shrink');
+    }
+  }
+  hamburger.addEventListener('click', () => {
+    if(nav.classList.contains('open')) {
+      closeNav();
+    } else {
+      openNav();
+    }
+  });
+  closeNavBtn.addEventListener('click', closeNav);
+
+  // Accordion açma/kapatma
+  const headers = document.querySelectorAll('.category button.header-btn');
+  headers.forEach(header => {
+    header.addEventListener('click', () => {
+      const expanded = header.getAttribute('aria-expanded') === 'true';
+      // Hepsini kapat
+      headers.forEach(h => {
+        h.setAttribute('aria-expanded', 'false');
+        document.getElementById(h.getAttribute('aria-controls')).classList.remove('open');
+      });
+      // Eğer kapalıysa aç
+      if (!expanded) {
+        header.setAttribute('aria-expanded', 'true');
+        document.getElementById(header.getAttribute('aria-controls')).classList.add('open');
+      }
+    });
+  });
+
+  // Gece modu
+  const darkToggle = document.getElementById('dark-mode-toggle');
+  darkToggle.addEventListener('click', () => {
+    const isDark = document.body.classList.toggle('dark');
+    darkToggle.setAttribute('aria-pressed', isDark);
+    darkToggle.textContent = isDark ? '☀️' : '🌙';
+  });
+
+  // Klavye ile hamburger aç kapa (accessibility)
+  hamburger.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      hamburger.click();
+    }
+  });
+</script>
+
+</body>
+</html>

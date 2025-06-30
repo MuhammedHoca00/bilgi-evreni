@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bilgi Evreni - Tek Dosya</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    margin: 0; padding: 0;
+    color: #222;
+  }
+  header {
+    background: #2c3e50;
+    color: white;
+    padding: 20px 10px;
+    text-align: center;
+    font-size: 2em;
+    font-weight: 700;
+  }
+  nav {
+    background: #34495e;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+  nav button {
+    background: #ecf0f1;
+    border: none;
+    padding: 10px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px 6px 0 0;
+    transition: background-color 0.3s ease;
+  }
+  nav button.active, nav button:hover {
+    background: #3498db;
+    color: white;
+  }
+  main {
+    max-width: 960px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  }
+  section {
+    display: none;
+  }
+  section.active {
+    display: block;
+  }
+  h2 {
+    margin-top: 0;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 6px;
+  }
+  /* İçerik paragrafı */
+  p {
+    line-height: 1.6;
+    font-size: 1.1em;
+  }
+  /* Oyun alanı */
+  #quiz {
+    margin-top: 15px;
+  }
+  #quiz p#question {
+    font-weight: 700;
+    font-size: 1.2em;
+    margin-bottom: 15px;
+  }
+  #quiz button.answer-btn {
+    padding: 10px 18px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    background: #3498db;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  #quiz button.answer-btn:hover {
+    background: #2980b9;
+  }
+  #quiz #result {
+    margin-top: 18px;
+    font-size: 1.15em;
+    font-weight: 700;
+    min-height: 30px;
+  }
+  #quiz button#next-btn {
+    margin-top: 20px;
+    background: #27ae60;
+  }
+  #quiz button#next-btn:hover {
+    background: #1e8449;
+  }
+  /* Responsive */
+  @media(max-width: 600px) {
+    nav {
+      flex-direction: column;
+      align-items: center;
+    }
+    nav button {
+      width: 90%;
+      margin-bottom: 6px;
+      border-radius: 6px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>Bilgi Evreni</header>
+
+<nav>
+  <button class="tab-btn active" data-tab="tarih">Tarih</button>
+  <button class="tab-btn" data-tab="bilim">Bilim</button>
+  <button class="tab-btn" data-tab="futbol">Futbol</button>
+  <button class="tab-btn" data-tab="sanat">Sanat</button>
+  <button class="tab-btn" data-tab="oyunlar">Bilgi Oyunları</button>
+</nav>
+
+<main>
+  <section id="tarih" class="active">
+    <h2>Tarih</h2>
+    <p>İstanbul’un fethi 1453 yılında Osmanlı Padişahı II. Mehmet tarafından gerçekleştirilmiştir. Bu olay Orta Çağ’ın sona erdiği ve Yeni Çağ’ın başladığı kabul edilen önemli bir dönüm noktasıdır.</p>
+    <p>Osmanlı Devleti 1299 yılında kurulmuş ve yaklaşık 600 yıl boyunca dünya tarihine damgasını vurmuştur.</p>
+    <p>2. Dünya Savaşı 1939-1945 yılları arasında gerçekleşmiş, milyonlarca insanın hayatını kaybetmesine yol açmıştır.</p>
+    <p>Tarih boyunca medeniyetler savaşlar, barışlar ve kültürel etkileşimlerle şekillenmiştir.</p>
+  </section>
+
+  <section id="bilim">
+    <h2>Bilim</h2>
+    <p>Kara delikler, kütlesi çok büyük olan ve ışığın bile kaçamadığı gök cisimleridir. Evrenin en gizemli nesnelerindendir.</p>
+    <p>DNA, canlıların genetik bilgisini taşıyan moleküldür ve kalıtımın temelidir.</p>
+    <p>Zaman yolculuğu teorileri, fizik kuralları çerçevesinde henüz kanıtlanamamış, fakat popüler bilim kurgu konusudur.</p>
+    <p>Işık hızı saniyede yaklaşık 299.792 kilometredir ve evrendeki en yüksek hızdır.</p>
+  </section>
+
+  <section id="futbol">
+    <h2>Futbol</h2>
+    <p>Futbol, 11’er kişilik iki takım arasında oynanan ve topun rakip kaleye sokulmaya çalışıldığı dünyadaki en popüler spordur.</p>
+    <p>Dünya Kupası, FIFA tarafından düzenlenen en prestijli uluslararası futbol turnuvasıdır ve 4 yılda bir yapılır.</p>
+    <p>Pelé, Maradona, Messi ve Ronaldo tarihin en efsane futbolcularından bazılarıdır.</p>
+    <p>Futbol taktikleri takımdan takıma değişmekle beraber, 4-4-2, 4-3-3 gibi formasyonlar yaygın kullanılır.</p>
+  </section>
+
+  <section id="sanat">
+    <h2>Kültür & Sanat</h2>
+    <p>Leonardo da Vinci, Rönesans döneminin en önemli ressamlarından biridir ve Mona Lisa eseri dünya çapında ünlüdür.</p>
+    <p>Mitoloji, kültürlerin tanrılarını, efsanelerini ve inanç sistemlerini anlatır.</p>
+    <p>Barok, Romantik ve Empresyonizm sanat akımları tarih boyunca gelişmiş önemli hareketlerdir.</p>
+    <p>Sanat, toplumların kültürel kimliğini yansıtan ve insanları birleştiren evrensel bir dildir.</p>
+  </section>
+
+  <section id="oyunlar">
+    <h2>Bilgi Oyunları</h2>
+    <div id="quiz">
+      <p id="question">Soru yükleniyor...</p>
+      <button class="answer-btn" data-answer="true">Doğru</button>
+      <button class="answer-btn" data-answer="false">Yanlış</button>
+      <p id="result"></p>
+      <button id="next-btn" style="display:none;">Sonraki Soru</button>
+    </div>
+  </section>
+</main>
+
+<script>
+  // Tab geçişleri
+  const tabButtons = document.querySelectorAll('nav button.tab-btn');
+  const sections = document.querySelectorAll('main section');
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const tab = btn.getAttribute('data-tab');
+      sections.forEach(sec => {
+        sec.id === tab ? sec.classList.add('active') : sec.classList.remove('active');
+      });
+    });
+  });
+
+  // Quiz oyun kısmı
+  const questions = [
+    { q: "Osmanlı Devleti 1299 yılında kurulmuştur.", a: true },
+    { q: "Işık hızı sesten daha yavaştır.", a: false },
+    { q: "FIFA Dünya Kupası her yıl düzenlenir.", a: false },
+    { q: "İstanbul, Türkiye’nin başkentidir.", a: false },
+    { q: "DNA, genetik bilgiyi taşıyan moleküldür.", a: true },
+    { q: "Pelé, futbolun en iyi golcüsüdür.", a: true },
+    { q: "Leonardo da Vinci Mona Lisa tablosunu yapmıştır.", a: true },
+    { q: "2. Dünya Savaşı 1945 yılında sona erdi.", a: true },
+    { q: "Mitoloji sadece Yunan kültürüne ait efsaneleri içerir.", a: false }
+  ];
+
+  let currentQ = 0;
+
+  const questionEl = document.getElementById('question');
+  const resultEl = document.getElementById('result');
+  const answerButtons = document.querySelectorAll('#quiz button.answer-btn');
+  const nextBtn = document.getElementById('next-btn');
+
+  function loadQuestion() {
+    resultEl.textContent = '';
+    nextBtn.style.display = 'none';
+    questionEl.textContent = questions[currentQ].q;
+    answerButtons.forEach(btn => btn.disabled = false);
+  }
+
+  function selectAnswer(e) {
+    const userAnswer = e.target.getAttribute('data-answer') === 'true';
+    const correctAnswer = questions[currentQ].a;
+    if(userAnswer === correctAnswer) {
+      resultEl.textContent = 'Doğru!';
+      resultEl.style.color = 'green';
+    } else {
+      resultEl.textContent = 'Yanlış!';
+      resultEl.style.color = 'red';
+    }
+    answerButtons.forEach(btn => btn.disabled = true);
+    nextBtn.style.display = 'inline-block';
+  }
+
+  function nextQuestion() {
+    currentQ++;
+    if(currentQ >= questions.length) currentQ = 0;
+    loadQuestion();
+  }
+
+  answerButtons.forEach(btn => {
+    btn.addEventListener('click', selectAnswer);
+  });
+  nextBtn.addEventListener('click', nextQuestion);
+
+  // Sayfa yüklendiğinde
+  loadQuestion();
+</script>
+
+</body>
+  </html>

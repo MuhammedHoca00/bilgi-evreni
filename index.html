@@ -3,56 +3,63 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Bilgi Portalı</title>
+<title>Bilgi Evreni - Devasa Portal</title>
 <style>
   /* Reset */
   *, *::before, *::after {
-    margin:0; padding:0; box-sizing:border-box;
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
   }
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f5f7fa;
+    background: #f0f3f5;
     color: #222;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    transition: background-color 0.4s ease, color 0.4s ease;
   }
-  /* Gece modu */
   body.dark {
-    background: #121212;
+    background: #121214;
     color: #ddd;
   }
+  /* Header */
   header {
-    background: #34495e;
-    color: #ecf0f1;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 65px;
+    background: #2c3e50;
+    color: white;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 15px 20px;
-    position: sticky;
-    top:0;
-    z-index: 1000;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    align-items: center;
+    padding: 0 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 2000;
   }
   header h1 {
+    font-weight: 900;
     font-size: 1.8rem;
-    font-weight: 700;
+    user-select: none;
   }
   #dark-toggle {
-    background: #2ecc71;
+    background: #27ae60;
     border: none;
-    color: #fff;
     padding: 10px 16px;
     border-radius: 30px;
-    cursor: pointer;
     font-weight: 700;
+    cursor: pointer;
+    color: #fff;
     transition: background-color 0.3s ease;
     user-select: none;
   }
   #dark-toggle:hover {
-    background: #27ae60;
+    background: #1e8449;
   }
-  /* Hamburger */
+  /* Hamburger Menu */
   #hamburger {
     display: none;
     flex-direction: column;
@@ -64,22 +71,23 @@
   #hamburger span {
     display: block;
     height: 4px;
-    background: #ecf0f1;
+    background: white;
     border-radius: 2px;
-    transition: 0.3s;
+    transition: all 0.3s ease;
   }
-  /* Nav */
+  /* Navigation */
   nav {
-    background: #2c3e50;
-    width: 250px;
-    min-height: calc(100vh - 60px);
+    background: #34495e;
+    width: 280px;
+    min-height: 100vh;
+    padding-top: 80px;
     position: fixed;
-    top: 60px;
+    top: 0;
     left: 0;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.3);
     overflow-y: auto;
-    transform: translateX(0);
     transition: transform 0.3s ease;
-    padding-top: 20px;
+    z-index: 1500;
   }
   nav.hide {
     transform: translateX(-100%);
@@ -88,147 +96,22 @@
     list-style: none;
   }
   nav li {
-    border-bottom: 1px solid #3b4a60;
+    border-bottom: 1px solid #3d566e;
   }
   nav a {
     display: block;
-    padding: 15px 25px;
-    text-decoration: none;
-    color: #ecf0f1;
+    padding: 15px 28px;
     font-weight: 600;
-    transition: background 0.3s ease;
-  }
-  nav a:hover, nav a.active {
-    background: #27ae60;
-    color: white;
-  }
-  /* Ana içerik */
-  main {
-    margin-left: 250px;
-    padding: 30px 40px;
-    flex-grow: 1;
-    max-width: 960px;
-  }
-  @media(max-width: 900px) {
-    #hamburger {
-      display: flex;
-    }
-    nav {
-      position: fixed;
-      z-index: 1100;
-      min-height: 100vh;
-      top: 60px;
-      left: 0;
-      width: 250px;
-      background: #2c3e50;
-      transform: translateX(-100%);
-    }
-    nav.show {
-      transform: translateX(0);
-    }
-    main {
-      margin-left: 0;
-      padding: 20px 15px;
-    }
-  }
-  section {
-    display: none;
-    animation: fadeIn 0.8s ease forwards;
-  }
-  section.active {
-    display: block;
-  }
-  @keyframes fadeIn {
-    from {opacity:0; transform: translateY(15px);}
-    to {opacity:1; transform: translateY(0);}
-  }
-  h2 {
-    margin-bottom: 20px;
-    border-left: 8px solid #27ae60;
-    padding-left: 12px;
-    font-size: 2rem;
-    font-weight: 700;
-    color: #27ae60;
-  }
-  p {
-    margin-bottom: 18px;
-    line-height: 1.7;
+    color: #ecf0f1;
+    text-decoration: none;
     font-size: 1.1rem;
-  }
-  /* Quiz oyun alanı */
-  #quiz {
-    background: #27ae60;
-    color: white;
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 6px 18px #1e7f42;
-    max-width: 700px;
-    margin-top: 30px;
-  }
-  #quiz p#question {
-    font-weight: 700;
-    font-size: 1.4rem;
-    margin-bottom: 20px;
-  }
-  #quiz button.answer-btn {
-    background: #2ecc71;
-    border: none;
-    padding: 12px 24px;
-    margin-right: 15px;
-    margin-bottom: 15px;
-    border-radius: 40px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    user-select: none;
-  }
-  #quiz button.answer-btn:hover {
-    background: #27ae60;
-  }
-  #quiz #result {
-    font-weight: 800;
-    font-size: 1.2rem;
-    margin-top: 15px;
-    min-height: 30px;
-  }
-  #quiz button#next-btn {
-    background: #f39c12;
-    color: #2c3e50;
-    font-weight: 800;
-    padding: 12px 28px;
-    border-radius: 50px;
-    border: none;
-    cursor: pointer;
-    margin-top: 20px;
-    user-select: none;
     transition: background-color 0.3s ease;
   }
-  #quiz button#next-btn:hover {
-    background: #d68910;
-  }
-  /* Gece modu uyumlu */
-  body.dark header {
-    background: #1a252f;
-  }
-  body.dark nav {
-    background: #1a252f;
-  }
-  body.dark nav a {
-    color: #a8d5ba;
-  }
-  body.dark nav a:hover, body.dark nav a.active {
-    background: #2ecc71;
+  nav a.active, nav a:hover {
+    background-color: #27ae60;
     color: white;
   }
-  body.dark main {
-    background: #1a252f;
-    color: #a8d5ba;
-  }
-  body.dark #quiz {
-    background: #2ecc71;
-    box-shadow: 0 8px 22px #27ae60;
-  }
-  /* Scrollbar stil */
+  /* Scrollbar nav */
   nav::-webkit-scrollbar {
     width: 8px;
   }
@@ -239,21 +122,186 @@
   nav::-webkit-scrollbar-track {
     background: #34495e;
   }
+  /* Main Content */
+  main {
+    margin-left: 280px;
+    padding: 100px 60px 60px 60px;
+    max-width: 900px;
+    transition: margin-left 0.3s ease;
+  }
+  @media (max-width: 900px) {
+    #hamburger {
+      display: flex;
+    }
+    nav {
+      position: fixed;
+      top: 65px;
+      left: 0;
+      height: calc(100vh - 65px);
+      width: 250px;
+      transform: translateX(-100%);
+      z-index: 3000;
+    }
+    nav.show {
+      transform: translateX(0);
+    }
+    main {
+      margin-left: 0;
+      padding: 90px 20px 60px 20px;
+    }
+  }
+  /* Sections */
+  section {
+    display: none;
+    animation: fadeIn 0.8s ease forwards;
+    outline: none;
+  }
+  section.active {
+    display: block;
+  }
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(15px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+  h2 {
+    font-size: 2.2rem;
+    margin-bottom: 24px;
+    border-left: 12px solid #27ae60;
+    padding-left: 18px;
+    font-weight: 900;
+    color: #27ae60;
+  }
+  p {
+    font-size: 1.15rem;
+    line-height: 1.75;
+    margin-bottom: 22px;
+  }
+  /* Oyunlar ve quiz */
+  #quiz-container {
+    margin-top: 30px;
+    background: #27ae60;
+    border-radius: 14px;
+    padding: 28px 30px;
+    color: white;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    max-width: 700px;
+  }
+  #quiz-container h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  #quiz-question {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    min-height: 55px;
+  }
+  .answer-btn {
+    background: #2ecc71;
+    border: none;
+    padding: 14px 28px;
+    margin: 8px 15px 15px 0;
+    border-radius: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    user-select: none;
+    font-size: 1.1rem;
+  }
+  .answer-btn:hover:not(:disabled) {
+    background: #27ae60;
+  }
+  .answer-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  #quiz-result {
+    margin-top: 22px;
+    font-weight: 800;
+    font-size: 1.3rem;
+    min-height: 35px;
+    text-shadow: 0 0 10px #000000bb;
+  }
+  #next-btn {
+    margin-top: 30px;
+    background: #f39c12;
+    border: none;
+    color: #2c3e50;
+    font-weight: 900;
+    padding: 14px 40px;
+    border-radius: 40px;
+    cursor: pointer;
+    user-select: none;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+    display: none;
+  }
+  #next-btn:hover {
+    background: #d68910;
+  }
+  /* Gece modu uyumlu */
+  body.dark nav {
+    background: #1a252f;
+  }
+  body.dark nav a {
+    color: #a8d5ba;
+  }
+  body.dark nav a.active, body.dark nav a:hover {
+    background: #2ecc71;
+    color: white;
+  }
+  body.dark main {
+    background: #1a252f;
+    color: #a8d5ba;
+  }
+  body.dark #quiz-container {
+    background: #2ecc71;
+    box-shadow: 0 12px 30px #27ae60;
+  }
+  /* Link focus */
+  a:focus, button:focus {
+    outline: 3px solid #27ae60;
+    outline-offset: 3px;
+  }
+  /* Scroll to top button */
+  #scrollTopBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #27ae60;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 50px;
+    font-size: 1.3rem;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 5px 15px #1e7f42;
+    user-select: none;
+    display: none;
+    z-index: 2500;
+    transition: background-color 0.3s ease;
+  }
+  #scrollTopBtn:hover {
+    background: #1e7f42;
+  }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Bilgi Portalı</h1>
-  <div id="hamburger" aria-label="Menüyü aç/kapat" role="button" tabindex="0">
-    <span></span><span></span><span></span>
+  <h1>Bilgi Evreni</h1>
+  <div id="hamburger" aria-label="Menüyü aç/kapat" role="button" tabindex="0" aria-expanded="false" aria-controls="side-nav">
+    <span></span>
+    <span></span>
+    <span></span>
   </div>
   <button id="dark-toggle" aria-label="Gece modunu aç/kapat" title="Gece modu">🌙</button>
 </header>
 
-<nav id="side-nav" class="hide" aria-label="Ana navigasyon">
+<nav id="side-nav" class="hide" aria-label="Ana Navigasyon">
   <ul>
-    <li><a href="#" class="nav-link active" data-section="kategori1">Tarih</a></li>
+    <li><a href="#" class="nav-link active" data-section="kategori1" tabindex="0">Tarih</a></li>
     <li><a href="#" class="nav-link" data-section="kategori2">Bilim</a></li>
     <li><a href="#" class="nav-link" data-section="kategori3">Futbol</a></li>
     <li><a href="#" class="nav-link" data-section="kategori4">Sanat</a></li>
@@ -278,125 +326,42 @@
 </nav>
 
 <main>
-  <!-- Kategori içerikleri -->
+  <!-- 21 Kategori içeriği, her biri uzun metinlerle -->
   <section id="kategori1" class="section active" tabindex="0" aria-label="Tarih">
     <h2>Tarih</h2>
-    <p>İstanbul’un fethi 1453 yılında Osmanlı Padişahı II. Mehmet tarafından gerçekleştirilmiştir. Bu olay, Orta Çağ'ın sona erdiği ve Yeni Çağ'ın başladığı önemli bir dönüm noktasıdır.</p>
-    <p>Osmanlı Devleti 1299 yılında kurulmuş, yaklaşık 600 yıl boyunca dünya tarihine yön vermiştir. Bu süreçte pek çok savaş, barış ve kültürel gelişmeler yaşanmıştır.</p>
-    <p>2. Dünya Savaşı 1939-1945 yılları arasında gerçekleşmiş ve dünya siyasetini derinden etkilemiştir.</p>
-    <p>Tarih insanlık için büyük bir öğreticidir ve geçmişten alınan derslerle geleceğe şekil verir.</p>
-    <p>... (Burada tarih ile ilgili onlarca satır bilgi yazılabilir, uzun uzun devam edilebilir.)</p>
+    <p>İnsanlık tarihi, binlerce yıl boyunca sayısız medeniyetin yükselişi ve çöküşüyle şekillenmiştir. En önemli dönüm noktalarından biri olan İstanbul’un fethi, 29 Mayıs 1453 tarihinde Osmanlı Sultanı II. Mehmet tarafından gerçekleştirilmiştir. Bu olay, Orta Çağ’ın kapanışını ve Yeni Çağ’ın başlangıcını simgeler.</p>
+    <p>Antik uygarlıklardan Roma, Yunan, Mısır ve Mezopotamya, insanlık kültürünün temel taşlarını oluşturmuştur. Bu uygarlıkların mirası günümüzde hâlâ bilim, sanat ve hukuk alanlarında etkisini sürdürmektedir.</p>
+    <p>Modern çağda, dünya savaşları ve sanayi devrimi, küresel düzenin yeniden şekillenmesine yol açmıştır. Soğuk Savaş dönemi ise iki süper güç arasındaki ideolojik çatışmayı temsil etmiştir.</p>
+    <p>Halk hareketleri, devrimler ve teknolojik ilerlemeler, tarihin akışını değiştiren önemli faktörlerdendir. Geçmişten alınan derslerle geleceğe doğru sağlam adımlar atmak insanlığın ortak hedefidir.</p>
   </section>
 
   <section id="kategori2" class="section" tabindex="0" aria-label="Bilim">
     <h2>Bilim</h2>
-    <p>Kara delikler, ışığın bile kaçamadığı yoğun kütleli gök cisimleridir ve evrenin en gizemli yapılarındandır.</p>
-    <p>DNA, canlıların genetik bilgisini taşıyan moleküldür ve kalıtımın temelidir.</p>
-    <p>Zaman yolculuğu hâlâ fizik kuralları çerçevesinde tartışılan, henüz kanıtlanamamış bir teoridir.</p>
-    <p>Işık hızı saniyede yaklaşık 299.792 kilometredir ve evrendeki en yüksek hızdır.</p>
-    <p>... (Bilimle ilgili detaylı ve uzun açıklamalar buraya eklenebilir.)</p>
+    <p>Bilim, evrenin sırlarını anlamak için sistematik bilgi birikimi ve deneysel gözlemler bütünüdür. Evrenin yapısını keşfetmeye yönelik astronomiden, moleküler seviyede çalışan biyolojiye kadar geniş bir yelpazeye sahiptir.</p>
+    <p>Kara delikler, Einstein’ın genel görelilik teorisiyle ortaya atılan ve ışığın bile kaçamadığı yoğun kütleli gök cisimleridir. Modern fizik, evrenin yapısını anlamada önemli ilerlemeler sağlamıştır.</p>
+    <p>Genetik bilimi, DNA’nın yapısını ve canlıların kalıtım mekanizmalarını çözümleyerek biyolojide devrim yaratmıştır. İnsan genom projesi, bu alandaki en büyük çalışmalardan biridir.</p>
+    <p>Yapay zeka ve makine öğrenimi, bilimde yeni bir çağın kapılarını aralamaktadır. Bu teknolojiler sayesinde karmaşık veriler analiz edilmekte ve hayatın pek çok alanında devrimler yaşanmaktadır.</p>
   </section>
 
   <section id="kategori3" class="section" tabindex="0" aria-label="Futbol">
     <h2>Futbol</h2>
-    <p>Futbol, 11'er kişilik iki takım arasında oynanan ve topun rakip kaleye sokulmaya çalışıldığı dünyanın en popüler sporudur.</p>
-    <p>Dünya Kupası, FIFA tarafından düzenlenen en prestijli uluslararası turnuvadır ve 4 yılda bir yapılır.</p>
-    <p>Pelé, Maradona, Messi ve Ronaldo tarihin en efsane futbolcularından bazılarıdır.</p>
-    <p>Futbol taktikleri ve formasyonları takımdan takıma değişmektedir.</p>
-    <p>... (Futbol hakkında kapsamlı yazılar buraya yazılabilir.)</p>
+    <p>Futbol, dünya çapında en çok takip edilen ve oynanan spor dalıdır. İki takımın 11’er oyuncuyla sahada mücadele ettiği bu oyun, basit kuralları ve yüksek rekabetiyle herkesi büyüler.</p>
+    <p>Dünya Kupası, futbolun zirvesini temsil eder. 4 yılda bir düzenlenen bu turnuva, ülkelerin en iyilerini bir araya getirir ve milyonlarca izleyiciyi ekran başına çeker.</p>
+    <p>Tarihin en büyük futbolcularından Pelé, Diego Maradona, Lionel Messi ve Cristiano Ronaldo, futbolun sınırlarını zorlayarak yeni standartlar oluşturmuştur.</p>
+    <p>Teknik direktörlerin stratejileri ve taktikleri, maçların kaderini belirler. Modern futbol, teknoloji ve analizle birleşerek sürekli evrim halindedir.</p>
   </section>
 
   <section id="kategori4" class="section" tabindex="0" aria-label="Sanat">
     <h2>Sanat</h2>
-    <p>Leonardo da Vinci, Rönesans döneminin en önemli ressamlarından biridir ve Mona Lisa eseriyle tanınır.</p>
-    <p>Mitoloji, kültürlerin tanrılarını ve efsanelerini anlatan hikayeler bütünüdür.</p>
-    <p>Barok, Romantik ve Empresyonizm gibi sanat akımları sanat tarihinde önemli yer tutar.</p>
-    <p>Sanat, toplumların kültürel kimliğini yansıtır ve evrensel bir dil oluşturur.</p>
-    <p>... (Sanatla ilgili detaylı açıklamalar ve örnekler eklenebilir.)</p>
+    <p>Sanat, insan duygularını ve düşüncelerini ifade etmenin en güçlü yollarından biridir. Resim, heykel, müzik, tiyatro ve sinema gibi dallarda çeşitlilik gösterir.</p>
+    <p>Rönesans dönemi, Leonardo da Vinci ve Michelangelo gibi dâhilerin eserleriyle sanat tarihine damgasını vurmuştur. Mona Lisa tablosu, evrensel bir simgedir.</p>
+    <p>Modern sanat akımları, geleneksel sınırları aşarak farklı teknikler ve ifadeler denemiştir. Empresyonizm, sürrealizm ve kübizm gibi akımlar buna örnektir.</p>
+    <p>Sanat, kültürler arasında köprü kurar ve insanlık tarihinin aynasıdır. Her dönemin ruhunu ve değerlerini yansıtır.</p>
   </section>
 
   <section id="kategori5" class="section" tabindex="0" aria-label="Teknoloji">
     <h2>Teknoloji</h2>
-    <p>Teknoloji, insan hayatını kolaylaştıran araçlar ve yöntemler bütünüdür.</p>
-    <p>Bilgisayarların gelişimi, internetin yaygınlaşması ve mobil teknolojiler hayatımızı kökten değiştirmiştir.</p>
-    <p>Yapay zeka, günümüzde en hızlı gelişen teknolojik alanlardan biridir ve gelecekte büyük rol oynayacaktır.</p>
-    <p>... (Teknoloji ile ilgili geniş kapsamlı içerik buraya eklenebilir.)</p>
-  </section>
-
-  <!-- Diğer kategoriler benzer şekilde eklenebilir... -->
-
-  <!-- Bilgi Oyunları -->
-  <section id="kategori21" class="section" tabindex="0" aria-label="Bilgi Oyunları">
-    <h2>Bilgi Oyunları</h2>
-    <div id="quiz">
-      <p id="question" aria-live="polite">Soru yükleniyor...</p>
-      <div>
-        <button class="answer-btn" data-answer="true" aria-pressed="false">Doğru</button>
-        <button class="answer-btn" data-answer="false" aria-pressed="false">Yanlış</button>
-      </div>
-      <p id="result" aria-live="assertive"></p>
-      <button id="next-btn" style="display:none;">Sonraki Soru</button>
-    </div>
-    <div id="multi-choice-quiz" style="margin-top:40px;">
-      <h3>Çoktan Seçmeli Soru</h3>
-      <p id="mc-question" aria-live="polite">Yükleniyor...</p>
-      <div id="mc-answers"></div>
-      <p id="mc-result" aria-live="assertive"></p>
-      <button id="mc-next-btn" style="display:none;">Sonraki Soru</button>
-    </div>
-  </section>
-</main>
-
-<script>
-  // Hamburger menü kontrolü
-  const hamburger = document.getElementById('hamburger');
-  const sideNav = document.getElementById('side-nav');
-
-  hamburger.addEventListener('click', () => {
-    sideNav.classList.toggle('show');
-  });
-  // Klavyeden enter veya space ile de açma
-  hamburger.addEventListener('keydown', e => {
-    if(e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      sideNav.classList.toggle('show');
-    }
-  });
-
-  // Gece modu toggle
-  const darkToggle = document.getElementById('dark-toggle');
-  darkToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-  });
-
-  // Navigasyon ve içerik kontrolü
-  const navLinks = document.querySelectorAll('nav a.nav-link');
-  const sections = document.querySelectorAll('main section.section');
-
-  navLinks.forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const target = link.getAttribute('data-section');
-
-      navLinks.forEach(l => l.classList.remove('active'));
-      link.classList.add('active');
-
-      sections.forEach(sec => {
-        if(sec.id === target) {
-          sec.classList.add('active');
-          sec.focus();
-        } else {
-          sec.classList.remove('active');
-        }
-      });
-
-      // Menü mobildeyse kapat
-      if(window.innerWidth <= 900) {
-        sideNav.classList.remove('show');
-      }
-    });
-  });
-
-  // Doğru Yanlış Quiz
-  const tfQuestions = [
-    { q
+    <p>Teknoloji, insan hayatını kolaylaştıran ve geliştiren araçların toplamıdır. Sanayi devrimiyle başlayan hızlı gelişim, günümüzde dijital dönüşümle zirveye ulaşmıştır.</p>
+    <p>Bilgisayarlar, internet ve mobil cihazlar, hayatımızın vazgeçilmez parçaları haline gelmiştir. Yapay zeka ve nesnelerin interneti gibi yenilikler geleceğin teknolojileri arasındadır.</p>
+    <p>Uzay araştırmaları, genetik mühendislik ve sürdürülebilir enerji çözümleri, teknolojinin insanlık için sunduğu umut verici alanlardandır.</p>
+    <p>Teknolojinin etik ve toplums

@@ -3,90 +3,100 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Bilgi Evreni - Uzun ve Detaylı Portal</title>
+<title>Bilgi Evreni - Modern & Detaylı Portal</title>
 <style>
-  /* Reset */
-  *, *::before, *::after {
-    margin: 0; padding: 0; box-sizing: border-box;
-  }
-  html {
-    scroll-behavior: smooth;
-  }
+  /* --- Reset & temel stiller --- */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f0f3f5;
+    background: #fafafa;
     color: #222;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    transition: background-color 0.4s ease, color 0.4s ease;
+    transition: background-color 0.35s ease, color 0.35s ease;
   }
   body.dark {
-    background: #121214;
-    color: #ddd;
+    background: #121212;
+    color: #e0e0e0;
   }
-  /* Header */
+  a {
+    color: #27ae60;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  a:hover, a:focus {
+    color: #2ecc71;
+    outline: none;
+  }
+  /* --- HEADER --- */
   header {
     position: fixed;
     top: 0; left: 0; right: 0;
-    height: 65px;
-    background: #2c3e50;
-    color: white;
+    height: 60px;
+    background: #1e272e;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 0 25px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    z-index: 2000;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    box-shadow: 0 2px 7px rgba(0,0,0,0.3);
+    z-index: 3000;
   }
   header h1 {
     font-weight: 900;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    color: #2ecc71;
     user-select: none;
   }
-  #dark-toggle {
-    background: #27ae60;
-    border: none;
-    padding: 10px 16px;
+  /* --- GECE MODU BUTONU --- */
+  #darkToggle {
+    background: none;
+    border: 2px solid #2ecc71;
+    color: #2ecc71;
+    font-size: 1.3rem;
+    padding: 6px 14px;
     border-radius: 30px;
-    font-weight: 700;
     cursor: pointer;
-    color: #fff;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
     user-select: none;
   }
-  #dark-toggle:hover {
-    background: #1e8449;
+  #darkToggle:hover, #darkToggle:focus {
+    background: #2ecc71;
+    color: #121212;
+    outline: none;
   }
-  /* Hamburger Menu */
+  /* --- HAMBURGER --- */
   #hamburger {
     display: none;
     flex-direction: column;
-    cursor: pointer;
+    justify-content: space-around;
     width: 28px;
     height: 22px;
-    justify-content: space-between;
+    cursor: pointer;
+    z-index: 4000;
   }
   #hamburger span {
     display: block;
-    height: 4px;
-    background: white;
+    width: 100%;
+    height: 3.5px;
+    background: #2ecc71;
     border-radius: 2px;
     transition: all 0.3s ease;
   }
-  /* Navigation */
+  /* --- NAV --- */
   nav {
-    background: #34495e;
-    width: 280px;
-    min-height: 100vh;
-    padding-top: 80px;
     position: fixed;
-    top: 0;
+    top: 60px;
     left: 0;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+    width: 280px;
+    height: calc(100vh - 60px);
+    background: #192a20;
+    box-shadow: 2px 0 15px rgba(0,0,0,0.5);
+    padding: 1.5rem 0;
     overflow-y: auto;
     transition: transform 0.3s ease;
-    z-index: 1500;
+    z-index: 2500;
   }
   nav.hide {
     transform: translateX(-100%);
@@ -94,171 +104,167 @@
   nav ul {
     list-style: none;
   }
-  nav li {
-    border-bottom: 1px solid #3d566e;
+  nav li + li {
+    margin-top: 0.3rem;
   }
   nav a {
     display: block;
-    padding: 15px 28px;
+    padding: 12px 24px;
     font-weight: 600;
-    color: #ecf0f1;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: background-color 0.3s ease;
+    font-size: 1.05rem;
+    color: #a1c181;
+    border-left: 5px solid transparent;
+    transition: background 0.3s ease, border-color 0.3s ease;
   }
-  nav a.active, nav a:hover {
-    background-color: #27ae60;
-    color: white;
+  nav a.active, nav a:hover, nav a:focus {
+    background: #2ecc71;
+    color: #121212;
+    border-left-color: #27ae60;
+    outline: none;
   }
-  /* Scrollbar nav */
   nav::-webkit-scrollbar {
     width: 8px;
   }
   nav::-webkit-scrollbar-thumb {
-    background: #27ae60;
-    border-radius: 10px;
+    background: #2ecc71;
+    border-radius: 8px;
   }
   nav::-webkit-scrollbar-track {
-    background: #34495e;
+    background: #163118;
   }
-  /* Main Content */
+  /* --- MAIN --- */
   main {
     margin-left: 280px;
-    padding: 100px 60px 60px 60px;
+    padding: 80px 3rem 3rem 3rem;
     max-width: 900px;
     transition: margin-left 0.3s ease;
+    flex-grow: 1;
   }
+  /* --- Mobil Uyumluluk --- */
   @media (max-width: 900px) {
     #hamburger {
       display: flex;
     }
     nav {
-      position: fixed;
-      top: 65px;
-      left: 0;
-      height: calc(100vh - 65px);
-      width: 250px;
       transform: translateX(-100%);
-      z-index: 3000;
+      width: 250px;
+      top: 60px;
+      height: calc(100vh - 60px);
+      background: #192a20;
+      box-shadow: 3px 0 20px rgba(0,0,0,0.7);
     }
     nav.show {
       transform: translateX(0);
     }
     main {
       margin-left: 0;
-      padding: 90px 20px 60px 20px;
+      padding: 80px 1.5rem 1.5rem 1.5rem;
     }
   }
-  /* Sections */
+  /* --- BÖLÜMLER --- */
   section {
     display: none;
-    animation: fadeIn 0.8s ease forwards;
-    outline: none;
+    animation: fadeInUp 0.5s ease forwards;
   }
   section.active {
     display: block;
   }
-  @keyframes fadeIn {
-    from {opacity: 0; transform: translateY(15px);}
-    to {opacity: 1; transform: translateY(0);}
-  }
   h2 {
-    font-size: 2.2rem;
-    margin-bottom: 24px;
-    border-left: 12px solid #27ae60;
-    padding-left: 18px;
+    font-size: 2.4rem;
+    margin-bottom: 1rem;
     font-weight: 900;
     color: #27ae60;
+    border-left: 8px solid #2ecc71;
+    padding-left: 12px;
   }
   p {
     font-size: 1.15rem;
     line-height: 1.75;
-    margin-bottom: 22px;
+    margin-bottom: 1.1rem;
+    color: inherit;
   }
-  /* Oyunlar ve quiz */
-  #quiz-container {
-    margin-top: 30px;
+  /* --- Animasyonlar --- */
+  @keyframes fadeInUp {
+    from {opacity: 0; transform: translateY(25px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+  /* --- QUIZ BÖLÜMÜ --- */
+  #quiz {
     background: #27ae60;
-    border-radius: 14px;
-    padding: 28px 30px;
-    color: white;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-    max-width: 700px;
+    border-radius: 12px;
+    padding: 1.8rem 2.4rem;
+    box-shadow: 0 12px 30px rgba(39, 174, 96, 0.6);
+    max-width: 720px;
+    color: #121212;
+    margin-top: 1rem;
   }
-  #quiz-container h3 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 20px;
+  #quiz h3 {
+    margin-bottom: 1rem;
+    font-weight: 800;
+    font-size: 1.7rem;
   }
   #quiz-question {
-    font-size: 1.4rem;
     font-weight: 700;
-    margin-bottom: 20px;
-    min-height: 55px;
+    font-size: 1.3rem;
+    min-height: 60px;
+    margin-bottom: 1.2rem;
   }
   .answer-btn {
     background: #2ecc71;
     border: none;
-    padding: 14px 28px;
-    margin: 8px 15px 15px 0;
-    border-radius: 50px;
+    border-radius: 40px;
+    padding: 0.7rem 2rem;
+    margin-right: 0.8rem;
     font-weight: 700;
+    font-size: 1.1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
     user-select: none;
-    font-size: 1.1rem;
+    color: #121212;
   }
-  .answer-btn:hover:not(:disabled) {
+  .answer-btn:hover:not(:disabled),
+  .answer-btn:focus:not(:disabled) {
     background: #27ae60;
+    outline: none;
   }
   .answer-btn:disabled {
+    opacity: 0.5;
     cursor: not-allowed;
-    opacity: 0.6;
   }
   #quiz-result {
-    margin-top: 22px;
-    font-weight: 800;
+    margin-top: 1.2rem;
+    font-weight: 900;
     font-size: 1.3rem;
-    min-height: 35px;
-    text-shadow: 0 0 10px #000000bb;
+    min-height: 36px;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
   }
   #next-btn {
-    margin-top: 30px;
     background: #f39c12;
     border: none;
-    color: #2c3e50;
-    font-weight: 900;
-    padding: 14px 40px;
     border-radius: 40px;
+    padding: 0.9rem 2.8rem;
+    font-weight: 900;
+    font-size: 1.25rem;
     cursor: pointer;
+    margin-top: 2rem;
     user-select: none;
-    font-size: 1.2rem;
+    color: #2c3e50;
     transition: background-color 0.3s ease;
     display: none;
   }
-  #next-btn:hover {
+  #next-btn:hover,
+  #next-btn:focus {
     background: #d68910;
+    outline: none;
   }
-  /* Gece modu uyumlu */
-  body.dark nav {
-    background: #1a252f;
-  }
-  body.dark nav a {
-    color: #a8d5ba;
-  }
-  body.dark nav a.active, body.dark nav a:hover {
+  /* --- Gece modu quiz uyum --- */
+  body.dark #quiz {
     background: #2ecc71;
-    color: white;
+    color: #121212;
+    box-shadow: 0 14px 36px #27ae60cc;
   }
-  body.dark main {
-    background: #1a252f;
-    color: #a8d5ba;
-  }
-  body.dark #quiz-container {
-    background: #2ecc71;
-    box-shadow: 0 12px 30px #27ae60;
-  }
-  /* Link focus */
+  /* --- Focus için erişilebilirlik --- */
   a:focus, button:focus {
     outline: 3px solid #27ae60;
     outline-offset: 3px;
@@ -269,15 +275,13 @@
 
 <header>
   <h1>Bilgi Evreni</h1>
-  <div id="hamburger" aria-label="Menüyü aç/kapat" role="button" tabindex="0" aria-expanded="false" aria-controls="side-nav">
-    <span></span>
-    <span></span>
-    <span></span>
+  <div id="hamburger" tabindex="0" role="button" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="side-nav">
+    <span></span><span></span><span></span>
   </div>
-  <button id="dark-toggle" aria-label="Gece modunu aç/kapat" title="Gece modu">🌙</button>
+  <button id="darkToggle" aria-pressed="false" aria-label="Gece modunu aç veya kapat">🌙</button>
 </header>
 
-<nav id="side-nav" class="hide" aria-label="Ana Navigasyon">
+<nav id="side-nav" class="hide" aria-label="Kategori Navigasyonu">
   <ul>
     <li><a href="#" class="nav-link active" data-section="kategori1" tabindex="0">Tarih</a></li>
     <li><a href="#" class="nav-link" data-section="kategori2">Bilim</a></li>
@@ -304,59 +308,98 @@
 </nav>
 
 <main>
+  <!-- Örnek Kategoriler İçeriği -->
   <section id="kategori1" class="section active" tabindex="0" aria-label="Tarih">
     <h2>Tarih</h2>
-    <p>İnsanlık tarihi, binlerce yıl boyunca sayısız medeniyetin yükselişi ve çöküşüyle şekillenmiştir. En önemli dönüm noktalarından biri olan İstanbul’un fethi, 29 Mayıs 1453 tarihinde Osmanlı Sultanı II. Mehmet tarafından gerçekleştirilmiştir. Bu olay, Orta Çağ’ın kapanışını ve Yeni Çağ’ın başlangıcını simgeler.</p>
-    <p>Antik uygarlıklardan Roma, Yunan, Mısır ve Mezopotamya, insanlık kültürünün temel taşlarını oluşturmuştur. Bu uygarlıkların mirası günümüzde hâlâ bilim, sanat ve hukuk alanlarında etkisini sürdürmektedir.</p>
-    <p>Modern çağda, dünya savaşları ve sanayi devrimi, küresel düzenin yeniden şekillenmesine yol açmıştır. Soğuk Savaş dönemi ise iki süper güç arasındaki ideolojik çatışmayı temsil etmiştir.</p>
-    <p>Halk hareketleri, devrimler ve teknolojik ilerlemeler, tarihin akışını değiştiren önemli faktörlerdendir. Geçmişten alınan derslerle geleceğe doğru sağlam adımlar atmak insanlığın ortak hedefidir.</p>
+    <p>İnsanlık tarihindeki en önemli dönüm noktalarından biri olan İstanbul'un fethi, 29 Mayıs 1453'te gerçekleşmiştir. II. Mehmet'in önderliğindeki Osmanlı ordusu, Bizans İmparatorluğu'nun başkentini alarak Orta Çağ'ın kapanışını ve Yeni Çağ'ın başlangıcını simgelemiştir.</p>
+    <p>Roma, Yunan, Mısır ve Mezopotamya gibi eski medeniyetler, kültür, hukuk ve sanat alanında bugünkü medeniyetlerin temellerini atmıştır.</p>
+    <p>20. yüzyılda iki dünya savaşı ve teknolojik gelişmeler, modern dünyanın şekillenmesinde etkili olmuştur.</p>
+    <p>Tarih, geçmişin izlerini sürerek bugünümüzü anlamamıza ve geleceğimizi planlamamıza yardımcı olur.</p>
   </section>
-
   <section id="kategori2" class="section" tabindex="0" aria-label="Bilim">
     <h2>Bilim</h2>
-    <p>Bilim, evrenin sırlarını anlamak için sistematik bilgi birikimi ve deneysel gözlemler bütünüdür. Evrenin yapısını keşfetmeye yönelik astronomiden, moleküler seviyede çalışan biyolojiye kadar geniş bir yelpazeye sahiptir.</p>
-    <p>Kara delikler, Einstein’ın genel görelilik teorisiyle ortaya atılan ve ışığın bile kaçamadığı yoğun kütleli gök cisimleridir. Modern fizik, evrenin yapısını anlamada önemli ilerlemeler sağlamıştır.</p>
-    <p>Genetik bilimi, DNA’nın yapısını ve canlıların kalıtım mekanizmalarını çözümleyerek biyolojide devrim yaratmıştır. İnsan genom projesi, bu alandaki en büyük çalışmalardan biridir.</p>
-    <p>Yapay zeka ve makine öğrenimi, bilimde yeni bir çağın kapılarını aralamaktadır. Bu teknolojiler sayesinde karmaşık veriler analiz edilmekte ve hayatın pek çok alanında devrimler yaşanmaktadır.</p>
+    <p>Bilim, doğayı anlama ve açıklama çabasıdır. Fizik, kimya, biyoloji gibi disiplinler evreni anlamamızı sağlar.</p>
+    <p>Einstein’ın görelilik teorisi ve Newton’un hareket kanunları, fizik biliminde devrim yaratmıştır.</p>
+    <p>Genetik alanındaki ilerlemeler, insan DNA'sının yapısını çözerek tıpta yeni yöntemlerin geliştirilmesine olanak tanımıştır.</p>
+    <p>Günümüzde yapay zeka ve robotik bilim, geleceği şekillendiren öncü alanlar arasında yer alıyor.</p>
   </section>
-
-  <section id="kategori3" class="section" tabindex="0" aria-label="Futbol">
-    <h2>Futbol</h2>
-    <p>Futbol, dünya çapında en çok takip edilen ve oynanan spor dalıdır. İki takımın 11’er oyuncuyla sahada mücadele ettiği bu oyun, basit kuralları ve yüksek rekabetiyle herkesi büyüler.</p>
-    <p>Dünya Kupası, futbolun zirvesini temsil eder. 4 yılda bir düzenlenen bu turnuva, ülkelerin en iyilerini bir araya getirir ve milyonlarca izleyiciyi ekran başına çeker.</p>
-    <p>Tarihin en büyük futbolcularından Pelé, Diego Maradona, Lionel Messi ve Cristiano Ronaldo, futbolun sınırlarını zorlayarak yeni standartlar oluşturmuştur.</p>
-    <p>Teknik direktörlerin stratejileri ve taktikleri, maçların kaderini belirler. Modern futbol, teknoloji ve analizle birleşerek sürekli evrim halindedir.</p>
-  </section>
-
-  <section id="kategori4" class="section" tabindex="0" aria-label="Sanat">
-    <h2>Sanat</h2>
-    <p>Sanat, insan duygularını ve düşüncelerini ifade etmenin en güçlü yollarından biridir. Resim, heykel, müzik, tiyatro ve sinema gibi dallarda çeşitlilik gösterir.</p>
-    <p>Rönesans dönemi, Leonardo da Vinci ve Michelangelo gibi dâhilerin eserleriyle sanat tarihine damgasını vurmuştur. Mona Lisa tablosu, evrensel bir simgedir.</p>
-    <p>Modern sanat akımları, geleneksel sınırları aşarak farklı teknikler ve ifadeler denemiştir. Empresyonizm, sürrealizm ve kübizm gibi akımlar buna örnektir.</p>
-    <p>Sanat, kültürler arasında köprü kurar ve insanlık tarihinin aynasıdır. Her dönemin ruhunu ve değerlerini yansıtır.</p>
-  </section>
-
-  <section id="kategori5" class="section" tabindex="0" aria-label="Teknoloji">
-    <h2>Teknoloji</h2>
-    <p>Teknoloji, insan hayatını kolaylaştıran ve geliştiren araçların toplamıdır. Sanayi devrimiyle başlayan hızlı gelişim, günümüzde dijital dönüşümle zirveye ulaşmıştır.</p>
-    <p>Bilgisayarlar, internet ve mobil cihazlar, hayatımızın vazgeçilmez parçaları haline gelmiştir. Yapay zeka ve nesnelerin interneti gibi yenilikler geleceğin teknolojileri arasındadır.</p>
-    <p>Uzay araştırmaları, genetik mühendislik ve sürdürülebilir enerji çözümleri, teknolojinin insanlık için sunduğu umut verici alanlardandır.</p>
-    <p>Teknolojinin etik ve toplumsal etkileri üzerine düşünmek, geleceği şekillendirmenin anahtarlarındandır.</p>
-  </section>
-
-  <!-- Diğer kategorileri sen kolayca çoğaltabilirsin, örneğin kategori6, kategori7 ... -->
-
   <section id="kategori21" class="section" tabindex="0" aria-label="Bilgi Oyunları">
     <h2>Bilgi Oyunları</h2>
-    <div id="quiz-container" aria-live="polite" aria-atomic="true">
+    <div id="quiz" role="region" aria-live="polite" aria-atomic="true" aria-label="Bilgi yarışması">
       <h3>Doğru/Yanlış Soruları</h3>
-      <div id="quiz">
-        <p id="quiz-question">Yükleniyor...</p>
-        <button class="answer-btn" data-answer="true" aria-pressed="false">Doğru</button>
-        <button class="answer-btn" data-answer="false" aria-pressed="false">Yanlış</button>
-        <p id="quiz-result" aria-live="assertive"></p>
-        <button id="next-btn" aria-label="Sonraki soru">Sonraki Soru</button>
+      <p id="quiz-question" tabindex="0">Yükleniyor...</p>
+      <div>
+        <button class="answer-btn" data-answer="true" aria-pressed="false" tabindex="0">Doğru</button>
+        <button class="answer-btn" data-answer="false" aria-pressed="false" tabindex="0">Yanlış</button>
       </div>
+      <p id="quiz-result" aria-live="assertive" aria-atomic="true"></p>
+      <button id="next-btn" aria-label="Sonraki soru" tabindex="0">Sonraki Soru</button>
     </div>
   </section>
-</
+</main>
+
+<script>
+  // Gece modu toggle
+  const darkToggle = document.getElementById('darkToggle');
+  darkToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+    let pressed = darkToggle.getAttribute('aria-pressed') === 'true';
+    darkToggle.setAttribute('aria-pressed', !pressed);
+    if(!pressed) {
+      darkToggle.textContent = '☀️';
+    } else {
+      darkToggle.textContent = '🌙';
+    }
+  });
+
+  // Hamburger menü
+  const hamburger = document.getElementById('hamburger');
+  const nav = document.getElementById('side-nav');
+  hamburger.addEventListener('click', toggleMenu);
+  hamburger.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleMenu();
+    }
+  });
+  function toggleMenu() {
+    const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+    hamburger.setAttribute('aria-expanded', !expanded);
+    nav.classList.toggle('show');
+  }
+
+  // Menü linkleri ile kategori değiştirme
+  const navLinks = document.querySelectorAll('nav a.nav-link');
+  const sections = document.querySelectorAll('main section');
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      // Menü kapatma mobilde
+      if(window.innerWidth <= 900) {
+        nav.classList.remove('show');
+        hamburger.setAttribute('aria-expanded', false);
+      }
+      // Aktif link ve sekme değişimi
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      const targetId = link.getAttribute('data-section');
+      sections.forEach(s => {
+        if(s.id === targetId) {
+          s.classList.add('active');
+          s.focus();
+        } else {
+          s.classList.remove('active');
+        }
+      });
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+  });
+
+  // Quiz sistemi
+  const quizData = [
+    {question: "Dünya yuvarlaktır.", answer: true},
+    {question: "İstanbul Türkiye'nin başkentidir.", answer: false},
+    {question: "Su 100 derecede kaynar.", answer: true},
+    {question: "Güneş, Dünya'nın uydusudur.", answer: false},
+    {question: "Elektrik, Benjamin
